@@ -1,0 +1,10 @@
+KET QUA THUC NGHIEM
+
+Hai file train.csv va test.csv chua duoc dinh kem trong de / cac file PDF, nen goi source khong ghi so RMSLE gia.
+
+Sau khi dat du lieu Kaggle vao data/:
+    python src/smoke_test.py
+    python src/run_all.py
+
+Ket qua se duoc tao trong results/.
+Bao cao co san bang de dien RMSLE vao sau khi chay.

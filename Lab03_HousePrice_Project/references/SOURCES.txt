@@ -1,0 +1,7 @@
+1. Dean De Cock (2011). Ames, Iowa: Alternative to the Boston Housing Data as an End of Semester Regression Project. Journal of Statistics Education, 19(3).
+   https://jse.amstat.org/v19n3/decock.pdf
+
+2. Kaggle. House Prices - Advanced Regression Techniques.
+   https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques
+
+3. File code tham khảo được cung cấp trong đề bài: ML_House Prices_Advanced Regression Techniques.pdf

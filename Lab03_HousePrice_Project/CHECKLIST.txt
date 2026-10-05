@@ -1,0 +1,13 @@
+CHECKLIST NOP BAI LAB03
+
+[ ] train.csv
+[ ] test.csv
+[ ] sample_submission.csv (neu co)
+[ ] Chay: python src/smoke_test.py
+[ ] Chay: python src/run_all.py
+[ ] Kiem tra results/results_summary.csv
+[ ] Kiem tra results/submission_sklearn.csv
+[ ] Kiem tra results/submission_mlp.csv
+[ ] Dien ho ten + ma SV + thanh vien vao bao cao
+[ ] Neu can, cap nhat bang RMSLE trong bao cao theo results_summary.csv
+[ ] Nen toan bo thu muc thanh: lab03_house_price_hoten_masv.zip

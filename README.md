@@ -1,4 +1,15 @@
 # BÀI TẬP LỚN 02: FACIAL EMOTION RECOGNITION (FER2013)
+
+## Cập nhật phần Evaluation của Xuân Anh
+
+- Phân tích ngay kết quả đã lưu: `python src/analyze_saved_results.py`.
+- Đánh giá từ checkpoint thật khi có dữ liệu: `python src/evaluate.py`.
+- Hướng dẫn: [docs/EVALUATION_GUIDE.md](docs/EVALUATION_GUIDE.md).
+- Danh sách đã làm và còn thiếu: [docs/XUANANH_TASK_STATUS.md](docs/XUANANH_TASK_STATUS.md).
+- Báo cáo biên tập: [Word](docs/BT02_Report_XuanAnh.docx), [PDF](docs/BT02_Report_XuanAnh.pdf).
+
+Lưu ý đối chiếu hiện trạng: các checklist và mô tả kết quả cũ bên dưới là thông tin nhóm ghi trước đó, không xác nhận mọi file đã có trong bản clone. Mapping dùng bởi baseline ImageFolder là `angry, disgust, fear, happy, neutral, sad, surprise`, khác mã nhãn FER2013 gốc. Notebook chọn checkpoint trên tập mang tên `test`; đây chưa phải đánh giá test độc lập. Báo cáo còn thiếu hình và đầu vào được liệt kê trong biên bản bàn giao.
+
 **Môn học:** Học sâu (Deep Learning)  
 **Framework:** PyTorch  
 **Môi trường thực thi:** Conda environment (`fer_env`), Python 3.10+  

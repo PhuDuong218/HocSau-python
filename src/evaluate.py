@@ -84,7 +84,7 @@ def save_filters(model, path):
 
 
 def evaluate(checkpoint, data_dir, output_dir, *, device="cpu", batch_size=128,
-             split_name="test", selection_used=True):
+             split_name="test", selection_used=None):
     checkpoint, data_dir, output_dir = map(Path, (checkpoint, data_dir, output_dir))
     if not checkpoint.is_file():
         raise FileNotFoundError(f"Thieu checkpoint: {checkpoint}. Can file baseline_best.pth tu Nhi.")
@@ -106,6 +106,21 @@ def evaluate(checkpoint, data_dir, output_dir, *, device="cpu", batch_size=128,
     model, payload = load_checkpoint(checkpoint, device)
     if "class_to_idx" in payload and payload["class_to_idx"] != dataset.class_to_idx:
         raise ValueError("class_to_idx trong checkpoint khong khop du lieu.")
+    metadata_path = checkpoint.with_suffix('.metadata.json')
+    training_metadata = None
+    if metadata_path.is_file():
+        training_metadata = json.loads(metadata_path.read_text(encoding='utf-8'))
+        if training_metadata.get('checkpoint_sha256') != hashlib.sha256(checkpoint.read_bytes()).hexdigest():
+            raise ValueError('Checkpoint hash does not match its training metadata.')
+        if training_metadata.get('class_to_idx') != dataset.class_to_idx:
+            raise ValueError('Training metadata label mapping does not match dataset.')
+        recorded = training_metadata.get('test_used_for_selection')
+        if selection_used is not None and recorded is not None and selection_used != recorded:
+            raise ValueError('Requested evaluation description conflicts with checkpoint training metadata.')
+        if recorded is not None:
+            selection_used = recorded
+    if selection_used is None:
+        selection_used = True  # Original Nhi baseline selected on the test split.
     loader = DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=0)
     targets, predictions, confidences = [], [], []
     total_loss = 0.0
@@ -148,6 +163,7 @@ def evaluate(checkpoint, data_dir, output_dir, *, device="cpu", batch_size=128,
         "preprocessing": "grayscale(1), ToTensor, Normalize(mean=0.5, std=0.5), no augmentation",
         "filter_note": "conv3 weights, first 16 output filters, mean across 64 input channels; not feature maps or Grad-CAM",
         "classification_report": report,
+        "training_metadata": training_metadata,
     }
     # Create outputs only after inference has completed successfully.
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -220,7 +236,7 @@ def main():
     try:
         evaluate(args.checkpoint, args.data_dir, args.output_dir, device=args.device,
                  batch_size=args.batch_size, split_name=args.split_name,
-                 selection_used=not args.independent_holdout)
+                 selection_used=False if args.independent_holdout else None)
     except (FileNotFoundError, ValueError, RuntimeError) as exc:
         parser.exit(1, f"Evaluation failed: {exc}\n")
 

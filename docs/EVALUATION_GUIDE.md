@@ -1,5 +1,11 @@
 # Hướng dẫn phần Evaluation — Xuân Anh
 
+## Checkpoint mới đã được huấn luyện
+
+Lần chạy mới tạo `checkpoints/baseline_best.pth` và metadata đi kèm, chọn theo validation loss. Xem `docs/TRAINING_BASELINE.md` để biết nguồn dữ liệu, xử lý ảnh trùng, cách chia tập và log. Đây là checkpoint mới của Xuân Anh, không phải file trọng số gốc của Nhi.
+
+`evaluate.py` tự đọc metadata, kiểm tra hash/mapping và dùng đúng mô tả chọn mô hình. Phần hướng dẫn về tập test đã tham gia chọn checkpoint bên dưới áp dụng cho notebook baseline cũ của Nhi, không áp dụng cho lần train lại dùng validation riêng.
+
 ## Khi chưa có checkpoint
 
 Chạy `python src/analyze_saved_results.py` từ gốc repo hoặc phần A trong notebook đánh giá. Kết quả ghi ở `results/evaluation/saved_baseline/`, được tính từ số đếm trên ảnh confusion matrix đã có và đối chiếu output notebook. Đây là phân tích bằng chứng đã lưu, không phải lần test mới và không xuất được danh tính từng ảnh đúng/sai.
@@ -11,7 +17,7 @@ Chạy `python src/analyze_saved_results.py` từ gốc repo hoặc phần A tro
 - Nhãn theo `ImageFolder`: angry, disgust, fear, happy, neutral, sad, surprise. Đây là thứ tự trong output notebook, khác danh sách số nhãn FER2013 gốc ở README.
 - Ảnh 48 × 48, grayscale; chuẩn hóa mean=0.5/std=0.5; không augmentation khi đánh giá.
 
-Checkpoint và dữ liệu không được chứa trong bản clone hiện tại. Không thay bằng checkpoint ngẫu nhiên để lấy số liệu báo cáo.
+Checkpoint và ảnh thô không được lưu trên Git; bản clone mới vẫn cần tải dữ liệu và nhận checkpoint, hoặc huấn luyện lại. Không thay bằng checkpoint ngẫu nhiên để lấy số liệu báo cáo.
 
 ## Chạy
 

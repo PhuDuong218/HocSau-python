@@ -2,13 +2,14 @@
 
 ## Cập nhật phần Evaluation của Xuân Anh
 
-- Phân tích ngay kết quả đã lưu: `python src/analyze_saved_results.py`.
-- Đánh giá từ checkpoint thật khi có dữ liệu: `python src/evaluate.py`.
+- Kết quả checkpoint mới: Accuracy **48,41%**, Macro-F1 **0,3793** trên 7.178 ảnh test; chọn epoch bằng validation loss.
+- Đánh giá từ checkpoint đã bàn giao: `python src/evaluate.py --output-dir results/evaluation/baseline_retrained` (cần tải dữ liệu ảnh).
+- `python src/analyze_saved_results.py` chỉ phân tích kết quả cũ của Nhi, không phải lần chạy mới.
 - Hướng dẫn: [docs/EVALUATION_GUIDE.md](docs/EVALUATION_GUIDE.md).
 - Danh sách đã làm và còn thiếu: [docs/XUANANH_TASK_STATUS.md](docs/XUANANH_TASK_STATUS.md).
-- Báo cáo biên tập: [Word](docs/BT02_Report_XuanAnh.docx), [PDF](docs/BT02_Report_XuanAnh.pdf).
+- Báo cáo biên tập: [Word](docs/BT02_Report_XuanAnh_v2.docx), [PDF](docs/BT02_Report.pdf).
 
-Lưu ý đối chiếu hiện trạng: các checklist và mô tả kết quả cũ bên dưới là thông tin nhóm ghi trước đó, không xác nhận mọi file đã có trong bản clone. Mapping dùng bởi baseline ImageFolder là `angry, disgust, fear, happy, neutral, sad, surprise`, khác mã nhãn FER2013 gốc. Notebook chọn checkpoint trên tập mang tên `test`; đây chưa phải đánh giá test độc lập. Báo cáo còn thiếu hình và đầu vào được liệt kê trong biên bản bàn giao.
+Phần bàn giao mới gồm code, checkpoint và metadata, log, manifest chia tập, kết quả đánh giá cùng Word/PDF có 7 hình minh chứng. Mapping là `angry, disgust, fear, happy, neutral, sad, surprise`. Notebook cũ của Nhi dùng test để chọn checkpoint; lần train lại của Xuân Anh dùng validation riêng và xử lý trùng pixel giữa các tập. Các bảng số liệu và checklist cũ bên dưới được giữ làm tài liệu nhóm ban đầu; kết quả mới lấy theo báo cáo v2 và `results/evaluation/baseline_retrained/`. VGG16 hiện chỉ là số liệu tham khảo của nhóm, chưa có log để tái kiểm chứng.
 
 **Môn học:** Học sâu (Deep Learning)  
 **Framework:** PyTorch  

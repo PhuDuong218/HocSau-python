@@ -1,6 +1,37 @@
 # Bàn giao phần việc của Xuân Anh
 
+## Bản báo cáo đã đồng bộ sau cùng
+
+- File Word hiện dùng: `docs/BT02_Report_XuanAnh_v2.docx` (sửa trực tiếp, giữ nguyên tên).
+- PDF xuất từ cùng file Word: `docs/BT02_Report.pdf`, 10 trang, đã xem đủ từng trang.
+- Số liệu trong phần baseline được đồng bộ với lần train mới: Accuracy 48,41%, Macro-F1 0,3793, Weighted-F1 0,4613.
+- Đã cập nhật xử lý ảnh trùng, train/validation/test, tiền xử lý, kiến trúc, đường cong học tập, bảng metric, confusion matrix, ảnh đúng/sai, filter conv3, kết luận và nguồn số liệu.
+- Có 7 hình minh chứng thực: phân bố dữ liệu, ảnh mẫu, learning curve mới, confusion matrix mới, mẫu đúng, mẫu sai và filter cuối.
+- Phần VGG16 được ghi rõ là số liệu tham khảo của nhóm chưa tái kiểm chứng; không trình bày như một thí nghiệm mới đã chạy. Nhóm cần người phụ trách xác nhận cấu hình/log nếu muốn kết luận so sánh mô hình cuối cùng.
+- Phần đánh giá và biên tập báo cáo của Xuân Anh đã hoàn thiện theo bằng chứng hiện có. Toàn bài nhóm vẫn cần các thực nghiệm nhiều cấu hình, slide/demo và kiểm tra đóng gói theo phân công.
+- Không thực hiện commit/push; người dùng tự làm theo yêu cầu.
+
+### Nội dung nhật ký có thể bàn giao cho nhóm
+
+| Ngày | Công việc đã thực hiện với Codex hỗ trợ | Minh chứng |
+|---|---|---|
+| 22/11/2026 | Kiểm tra FER2013, xử lý trùng ảnh và huấn luyện lại baseline có validation riêng | `results/data_audit/`, `results/training/baseline_seed42/`, checkpoint và metadata |
+| 22/11/2026 | Đánh giá 7.178 ảnh, kiểm tra lại metric và xuất hình phân tích | `results/evaluation/baseline_retrained/` |
+| 22/11/2026 | Biên tập và đồng bộ báo cáo, bổ sung 7 hình, xuất PDF và kiểm tra 10 trang | Word v2 và `docs/BT02_Report.pdf` |
+
+Không tự điền số giờ, ngày họp hoặc phần việc của các thành viên khác. Các ghi chú bên dưới là lịch sử bàn giao trước khi bản báo cáo được hoàn thiện.
+
 Đối chiếu phân công tại mục 3 của README: Evaluation Lead và Report Editor.
+
+## Cập nhật sau khi tạo checkpoint mới
+
+Đã tải và kiểm tra đầy đủ dữ liệu Kaggle, huấn luyện lại baseline của Xuân Anh trong 3 epoch. Checkpoint `checkpoints/baseline_best.pth` và `baseline_best.metadata.json` đã được tạo từ lần chạy thật, chọn theo validation loss. Đây không phải checkpoint gốc của Nhi.
+
+Kiểm tra dữ liệu phát hiện 703 ảnh train trùng pixel với test; đã loại khỏi phần học. Loại thêm 73 ảnh train thuộc nhóm pixel có nhãn mâu thuẫn. Tập mới có 23.748 train, 4.185 validation và giữ 7.178 test. Chia tập theo nhóm pixel để không có trùng pixel train/validation/test.
+
+Hướng dẫn và bằng chứng mới: `docs/TRAINING_BASELINE.md`, `results/data_audit/`, `results/training/baseline_seed42/` và `results/evaluation/baseline_retrained/`. Báo cáo Word/PDF đã tạo trước đó phân tích kết quả cũ của Nhi; chưa được thay bằng các số liệu của lần chạy mới.
+
+Các mục phía dưới mô tả lần bàn giao trước khi tải dữ liệu và train lại; các ghi chú thiếu checkpoint/dữ liệu ở đó đã được giải quyết bằng lần chạy mới.
 
 ## Đã hoàn thành
 
@@ -23,7 +54,7 @@
 - Phần A của notebook được thực thi thành công khi không có checkpoint.
 - Báo cáo Word được xuất sang PDF qua bộ máy Word-compatible có trên máy; đã render và xem đủ 6 trang, kiểm tra bảng, chữ tiếng Việt và hai hình không bị cắt/đè.
 
-## Chưa thể hoàn tất
+## Các điểm còn thiếu ở lần bàn giao trước
 
 - Chạy inference trên checkpoint thật: thiếu `checkpoints/baseline_best.pth` và bộ ảnh FER2013 đã dùng.
 - Tạo lại predictions.csv và hình True/Wrong Cases từ ảnh thật; xác minh nguyên nhân thị giác từng lỗi.

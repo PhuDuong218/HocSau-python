@@ -1,11 +1,21 @@
+"""
+Định nghĩa kiến trúc các mô hình mạng nơ-ron tích chập (CNN) cho bài toán FER2013:
+- BaselineCNN: Kiến trúc cơ sở 3 khối Conv-BN-ReLU-Pool + FC
+- SmallCNN: Thử nghiệm kiến trúc nhỏ gọn
+- Medium01CNN: Thử nghiệm mạng sâu hơn
+- VGG16_FailCase: Thử nghiệm mô hình nặng chuyển giao sang dữ liệu 48x48
+"""
+
 import torch
 import torch.nn as nn
 import torchvision.models as models
+
 
 class BaselineCNN(nn.Module):
     """
     Kiến trúc Baseline CNN (3 khối Conv2D-BatchNorm-ReLU-MaxPool + FC 256).
     Phù hợp kích thước ảnh 48x48, bảo toàn cấu trúc feature map ở kích thước 6x6.
+    Giữ nguyên tên layer và trọng số để tương thích hoàn toàn state_dict.
     """
     def __init__(self, num_classes=7):
         super(BaselineCNN, self).__init__()
@@ -32,10 +42,11 @@ class BaselineCNN(nn.Module):
         x = self.pool(self.relu(self.bn1(self.conv1(x))))
         x = self.pool(self.relu(self.bn2(self.conv2(x))))
         x = self.pool(self.relu(self.bn3(self.conv3(x))))
-        x = x.view(x.size(0), -1)
+        x = x.reshape(x.size(0), -1)
         x = self.dropout(self.relu(self.fc1(x)))
         x = self.fc2(x)
         return x
+
 
 class SmallCNN(nn.Module):
     """
@@ -63,6 +74,7 @@ class SmallCNN(nn.Module):
 
     def forward(self, x):
         return self.classifier(self.features(x))
+
 
 class Medium01CNN(nn.Module):
     """
@@ -99,6 +111,7 @@ class Medium01CNN(nn.Module):
 
     def forward(self, x):
         return self.classifier(self.features(x))
+
 
 class VGG16_FailCase(nn.Module):
     """

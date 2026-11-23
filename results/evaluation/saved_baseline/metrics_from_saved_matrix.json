@@ -1,0 +1,147 @@
+{
+  "source_type": "saved_confusion_matrix_annotations",
+  "new_inference": false,
+  "source_file": "results/plots/baseline_confusion_matrix.png",
+  "source_sha256": "4ddbb97de3b1cc07b5eb5958cf9268b8bfcc9f0bf9f6ec4ec7eb1502efdcff6b",
+  "cross_check": "49 annotations manually reviewed; all row totals and rounded per-class notebook metrics match",
+  "samples": 7178,
+  "correct": 3470,
+  "wrong": 3708,
+  "accuracy": 0.4834215658957927,
+  "macro_precision": 0.38587647030365696,
+  "macro_recall": 0.38230976596964983,
+  "macro_f1": 0.3603555430279382,
+  "weighted_f1": 0.43819974834145187,
+  "labels": [
+    "angry",
+    "disgust",
+    "fear",
+    "happy",
+    "neutral",
+    "sad",
+    "surprise"
+  ],
+  "confusion_matrix": [
+    [
+      142,
+      0,
+      34,
+      273,
+      216,
+      261,
+      32
+    ],
+    [
+      27,
+      0,
+      2,
+      25,
+      17,
+      37,
+      3
+    ],
+    [
+      72,
+      0,
+      79,
+      211,
+      259,
+      264,
+      139
+    ],
+    [
+      14,
+      0,
+      17,
+      1534,
+      103,
+      78,
+      28
+    ],
+    [
+      21,
+      0,
+      24,
+      234,
+      752,
+      185,
+      17
+    ],
+    [
+      51,
+      0,
+      45,
+      284,
+      396,
+      455,
+      16
+    ],
+    [
+      19,
+      0,
+      90,
+      95,
+      93,
+      26,
+      508
+    ]
+  ],
+  "classification_report": {
+    "angry": {
+      "precision": 0.41040462427745666,
+      "recall": 0.14822546972860126,
+      "f1-score": 0.21779141104294478,
+      "support": 958.0
+    },
+    "disgust": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 111.0
+    },
+    "fear": {
+      "precision": 0.27147766323024053,
+      "recall": 0.0771484375,
+      "f1-score": 0.12015209125475285,
+      "support": 1024.0
+    },
+    "happy": {
+      "precision": 0.5775602409638554,
+      "recall": 0.8647125140924464,
+      "f1-score": 0.6925507900677201,
+      "support": 1774.0
+    },
+    "neutral": {
+      "precision": 0.4095860566448802,
+      "recall": 0.6098945660989457,
+      "f1-score": 0.49006190941674815,
+      "support": 1233.0
+    },
+    "sad": {
+      "precision": 0.34839203675344566,
+      "recall": 0.3648757016840417,
+      "f1-score": 0.3564433999216608,
+      "support": 1247.0
+    },
+    "surprise": {
+      "precision": 0.6837146702557201,
+      "recall": 0.6113116726835138,
+      "f1-score": 0.6454891994917408,
+      "support": 831.0
+    },
+    "accuracy": 0.4834215658957927,
+    "macro avg": {
+      "precision": 0.38587647030365696,
+      "recall": 0.38230976596964983,
+      "f1-score": 0.3603555430279382,
+      "support": 7178.0
+    },
+    "weighted avg": {
+      "precision": 0.4462780709574584,
+      "recall": 0.4834215658957927,
+      "f1-score": 0.43819974834145187,
+      "support": 7178.0
+    }
+  },
+  "limitation": "The baseline notebook selected its checkpoint on this same test split. This is not independent test performance. Individual image identities and checkpoint weights are unavailable in these aggregate results."
+}

@@ -25,3 +25,11 @@ Kết quả 44,30% là output lưu trong notebook, chưa có checkpoint/log đ�
 Chạy các lệnh từ thư mục `BTL02_Emotion_Recognition`. Xem `README.md` để cài môi trường và `docs/TRAINING_BASELINE.md` cho quy trình huấn luyện lại. Dữ liệu gốc được Git bỏ qua; muốn tạo lưới ảnh mẫu hoặc chạy lại train cần đặt ảnh đúng cấu trúc trong `data/raw/`. Kiểm tra `git status` trước khi commit để tránh đưa dữ liệu hoặc checkpoint không dự định lên remote.
 
 Phần còn cần xác nhận thủ công: đối chiếu hình mới với báo cáo Word/PDF; điền số giờ và link commit cùng link bản thảo này vào Work Log/Report Tracking. Chưa có cơ sở để tự ghi số giờ thay Dương. Việc tạo môi trường đầy đủ cho training và thử DataLoader PyTorch chưa được kiểm chứng trong phiên này.
+
+## Hướng dẫn tự cập nhật báo cáo và slide
+
+1. Trong Word `docs/BT02_Report_XuanAnh_v2.docx`, tìm phần dữ liệu và đối chiếu nội dung với các số liệu audit ở trên. Chèn `results/plots/dataset_distribution.png` và `results/plots/sample_faces.png` nếu nhóm quyết định dùng hình mới; thêm chú thích nguồn FER2013 và nêu seed 42. Lưới mẫu có một ảnh chứa chữ, có thể dùng làm ví dụ về giới hạn chất lượng dữ liệu.
+2. Trong phần preprocessing, mô tả horizontal flip là cấu hình của lần train lại hiện có. Rotation và translation là cấu hình `extended` để thử thêm, chưa có kết quả đánh giá mới; tránh trình bày như thành phần của checkpoint hiện tại.
+3. Trong phần VGG16, dùng kết quả 44,30% như output notebook cũ, ghi 15.246.023 tham số với classifier đã sửa và 3 epoch. Không kết luận nguyên nhân overfitting từ số liệu đó. Xem mục W06 bên trên để viết lại đoạn phân tích.
+4. Trong slide, tóm tắt phân phối lớp và pipeline train/validation/test; nếu chèn biểu đồ hoặc kết quả mô hình, dùng đúng nguồn của từng lần chạy. Ghi rõ ảnh và số liệu của lần chạy nào trong chú thích.
+5. Sau khi nhóm duyệt nội dung, cập nhật Work Log và Report Tracking bằng ngày thực hiện, thời gian làm việc thật, link commit và link báo cáo; xuất PDF theo quy trình nhóm.

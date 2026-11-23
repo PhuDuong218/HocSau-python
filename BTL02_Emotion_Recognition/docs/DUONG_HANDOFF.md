@@ -24,7 +24,9 @@ Kết quả 44,30% là output lưu trong notebook, chưa có checkpoint/log đ�
 
 Chạy các lệnh từ thư mục `BTL02_Emotion_Recognition`. Xem `README.md` để cài môi trường và `docs/TRAINING_BASELINE.md` cho quy trình huấn luyện lại. Dữ liệu gốc được Git bỏ qua; muốn tạo lưới ảnh mẫu hoặc chạy lại train cần đặt ảnh đúng cấu trúc trong `data/raw/`. Kiểm tra `git status` trước khi commit để tránh đưa dữ liệu hoặc checkpoint không dự định lên remote.
 
-Phần còn cần xác nhận thủ công: đối chiếu hình mới với báo cáo Word/PDF; điền số giờ và link commit cùng link bản thảo này vào Work Log/Report Tracking. Chưa có cơ sở để tự ghi số giờ thay Dương. Việc tạo môi trường đầy đủ cho training và thử DataLoader PyTorch chưa được kiểm chứng trong phiên này.
+Ngày 24/11/2026 đã kiểm thử `get_dataloaders` với PyTorch 2.15.0+cpu và torchvision 0.29.2+cpu trên dữ liệu FER2013 thật. Cả ba cấu hình `none`, `baseline`, `extended` đều đọc 28.709 train và 7.178 test, trả batch 8 ảnh kích thước `(8, 1, 48, 48)`, giá trị trong [-1,1] và đúng thứ tự 7 lớp. Cùng một ảnh test được xử lý giống nhau khi đọc lặp lại. Đây là kiểm thử pipeline, không phải huấn luyện hay kết quả so sánh augmentation. Môi trường kiểm thử CPU trong `.venv/test-deps` là cài đặt cục bộ tạm, chưa kiểm tra đầy đủ bộ requirements CUDA cho training.
+
+Phần còn cần xác nhận thủ công: đối chiếu hình mới với báo cáo Word/PDF; điền số giờ và link commit cùng link bản thảo này vào Work Log/Report Tracking. Chưa có cơ sở để tự ghi số giờ thay Dương.
 
 ## Hướng dẫn tự cập nhật báo cáo và slide
 

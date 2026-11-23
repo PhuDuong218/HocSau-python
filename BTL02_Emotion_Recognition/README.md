@@ -10,13 +10,7 @@
 ## 1. Giới thiệu đề tài
 Dự án xây dựng mô hình Deep Learning nhận diện cảm xúc khuôn mặt từ ảnh mức xám (grayscale) kích thước $48 \times 48$ pixel dựa trên tập dữ liệu chuẩn quốc tế **FER2013**.
 Hệ thống giải quyết bài toán phân loại đa lớp (Multi-class Classification) với 7 biểu cảm cảm xúc cơ bản của con người:
-* `0: Angry` (Tức giận)
-* `1: Disgust` (Ghê tởm)
-* `2: Fear` (Sợ hãi)
-* `3: Happy` (Hạnh phúc / Vui vẻ)
-* `4: Sad` (Buồn bã)
-* `5: Surprise` (Ngạc nhiên)
-* `6: Neutral` (Trung tính / Bình thường)
+Thứ tự mã nhãn của FER2013 CSV gốc là Angry, Disgust, Fear, Happy, Sad, Surprise, Neutral (0–6). Khi đọc ảnh theo thư mục, PyTorch `ImageFolder` sắp xếp theo tên: Angry, Disgust, Fear, Happy, Neutral, Sad, Surprise. Khi suy luận hãy dùng mapping được lưu cùng checkpoint, không áp dụng mã CSV trực tiếp.
 
 **Nguyên tắc số liệu:** Kết quả 48,34% và 44,30% dưới đây là output của các notebook cũ. Checkpoint hiện có trong `checkpoints/` thuộc lần huấn luyện lại, có metadata và kết quả riêng trong `results/training/` và `results/evaluation/baseline_retrained/`. Không gộp số liệu của hai lần chạy.
 
@@ -106,7 +100,7 @@ conda create -n fer_env python=3.11
 conda activate fer_env
 python -m pip install -r requirements.txt
 ```
-`requirements.txt` hiện ghim bản PyTorch cho CUDA 13.0; kiểm tra khả năng tương thích với GPU và driver trên máy trước khi cài. Nếu chỉ cần chạy phần đánh giá trong môi trường PyTorch đã có, xem `requirements-evaluation.txt`.
+`requirements.txt` hiện ghim bản PyTorch cho CUDA 13.0; kiểm tra khả năng tương thích với GPU và driver trên máy trước khi cài. Nếu chỉ cần chạy phần đánh giá trong môi trường PyTorch đã có, xem `requirements-evaluation.txt`. Mở `BTL02_Emotion_Recognition` làm thư mục gốc VS Code để cấu hình `.vscode` của dự án được áp dụng; chọn kernel của `fer_env` trước khi chạy notebook.
 
 ### Bước 2: Chuẩn bị dữ liệu
 Tải tập dữ liệu FER2013 và giải nén theo đúng cấu trúc:
@@ -120,7 +114,7 @@ BT02_Emotion_Recognition/data/raw/
 
 ### Bước 3: Kiểm tra dữ liệu và chạy EDA
 1. Chuẩn bị dữ liệu trong `data/raw/train/` và `data/raw/test/`. Nếu có bản CSV gốc, chạy `python src/prepare_fer2013.py` sau khi đặt `fer2013.csv` vào `data/raw/`.
-2. Chạy `python src/eda.py` hoặc `notebooks/01_eda.ipynb` để tạo lại biểu đồ phân phối từ `results/data_audit/dataset_audit.json`. Lưới ảnh mẫu chỉ được tạo lại khi có ảnh gốc trong `data/raw/train/`.
+2. Chạy `python src/eda.py` hoặc `notebooks/01_eda.ipynb` để tạo lại biểu đồ phân phối từ `results/data_audit/dataset_audit.json`. Khi dữ liệu ảnh hiện diện, EDA kiểm tra số ảnh từng lớp có khớp audit trước khi vẽ. Lưới ảnh mẫu chỉ được tạo lại khi có ảnh gốc trong `data/raw/train/`.
 3. Xem `docs/TRAINING_BASELINE.md` để biết cách kiểm định dữ liệu, huấn luyện lại và đánh giá checkpoint hiện có. Không chạy lại `src/train.py` khi chưa kiểm tra checkpoint và kết quả cũ vì chương trình từ chối ghi đè.
 4. `notebooks/02_baseline.ipynb` ghi lại thực nghiệm baseline cũ. `notebooks/03_experiments_and_evaluation.ipynb` dành cho phân tích và đánh giá; xem thêm `docs/EVALUATION_GUIDE.md` và bản thảo phần Dương trong `docs/DUONG_HANDOFF.md`.
 

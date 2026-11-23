@@ -1,16 +1,4 @@
 # BÀI TẬP LỚN 02: FACIAL EMOTION RECOGNITION (FER2013)
-
-## Cập nhật phần Evaluation của Xuân Anh
-
-- Kết quả checkpoint mới: Accuracy **48,41%**, Macro-F1 **0,3793** trên 7.178 ảnh test; chọn epoch bằng validation loss.
-- Đánh giá từ checkpoint đã bàn giao: `python src/evaluate.py --output-dir results/evaluation/baseline_retrained` (cần tải dữ liệu ảnh).
-- `python src/analyze_saved_results.py` chỉ phân tích kết quả cũ của Nhi, không phải lần chạy mới.
-- Hướng dẫn: [docs/EVALUATION_GUIDE.md](docs/EVALUATION_GUIDE.md).
-- Danh sách đã làm và còn thiếu: [docs/XUANANH_TASK_STATUS.md](docs/XUANANH_TASK_STATUS.md).
-- Báo cáo biên tập: [Word](docs/BT02_Report_XuanAnh_v2.docx), [PDF](docs/BT02_Report.pdf).
-
-Phần bàn giao mới gồm code, checkpoint và metadata, log, manifest chia tập, kết quả đánh giá cùng Word/PDF có 7 hình minh chứng. Mapping là `angry, disgust, fear, happy, neutral, sad, surprise`. Notebook cũ của Nhi dùng test để chọn checkpoint; lần train lại của Xuân Anh dùng validation riêng và xử lý trùng pixel giữa các tập. Các bảng số liệu và checklist cũ bên dưới được giữ làm tài liệu nhóm ban đầu; kết quả mới lấy theo báo cáo v2 và `results/evaluation/baseline_retrained/`. VGG16 hiện chỉ là số liệu tham khảo của nhóm, chưa có log để tái kiểm chứng.
-
 **Môn học:** Học sâu (Deep Learning)  
 **Framework:** PyTorch  
 **Môi trường thực thi:** Conda environment (`fer_env`), Python 3.10+  

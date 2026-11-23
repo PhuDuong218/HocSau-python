@@ -148,7 +148,8 @@ BT02_Emotion_Recognition/data/raw/
 
 - [x] Dương: khôi phục notebook EDA và bổ sung code tạo lại biểu đồ, ảnh mẫu khi có dữ liệu gốc.
 - [x] Dương: chuẩn bị bản thảo W02 và W06 có nguồn số liệu, giới hạn kết luận trong `docs/DUONG_HANDOFF.md`.
-- [ ] Dương: chạy EDA trên ảnh thật, đối chiếu hình mới và xác nhận phần bàn giao.
+- [x] Dương: chạy EDA trên ảnh thật và đối chiếu số lượng từng lớp với audit.
+- [ ] Dương: đối chiếu hình mới với báo cáo và xác nhận phần bàn giao.
 - [ ] Dương: cập nhật Work Log/Report Tracking bằng ngày, thời gian và link minh chứng thực tế.
 - [ ] Dương: kiểm tra hướng dẫn cài đặt trên máy dùng để nộp và hoàn tất T19.
 - [ ] Nhóm: rà soát báo cáo, demo, slide, các số liệu giữa những lần chạy và sản phẩm nộp.

@@ -6,7 +6,7 @@ Tài liệu này là bản thảo để nhóm ghép vào báo cáo và đối ch
 
 `results/data_audit/dataset_audit.json` ghi nhận 35.887 ảnh grayscale 48×48, gồm 28.709 train và 7.178 test (3.589 PublicTest, 3.589 PrivateTest). Bảy lớp theo `ImageFolder` là angry, disgust, fear, happy, neutral, sad, surprise. Happy có 8.989 ảnh, Disgust có 547 ảnh; đây là chênh lệch lớn cần lưu ý khi đánh giá theo từng lớp. Audit ghi CRC archive đạt và toàn bộ ảnh giải mã được. Nó cũng ghi 1.516 nhóm ảnh trùng pixel, trong đó 531 nhóm có mặt ở cả train và test, và 57 nhóm có nhãn mâu thuẫn. Định nghĩa trùng ở đây là hash SHA-256 của pixel giải mã giống hoàn toàn, không phải ảnh gần giống.
 
-`src/eda.py` và `notebooks/01_eda.ipynb` tạo lại biểu đồ phân phối từ audit. Lưới ảnh mẫu chỉ tạo được khi có `data/raw/train/`; dữ liệu gốc không nằm trong Git. Kết quả audit và biểu đồ đã có không chứng minh ai là người chạy, nên cần gắn commit hoặc link bàn giao của Dương trong Work Log.
+Ngày 23/11/2026, đã tải lại archive Kaggle, xác nhận SHA-256 trùng với audit (`9f3422c7a45b676c2965ef4fc5f3099932aa98fd13eaaa2c254f620a9894a6e9`), kiểm tra CRC thành công và đối chiếu số file từng lớp trên đĩa với audit: 28.709 train, 7.178 test, tất cả đều khớp. Đã chạy `src/eda.py`, tạo `results/plots/dataset_distribution.png` từ audit và `results/plots/sample_faces.png` từ ảnh train (seed 42). Một mẫu trong lưới có chữ và không thể nhận diện rõ khuôn mặt; kiểm tra giải mã, kích thước và hash không đảm bảo chất lượng nội dung hay tính chính xác của nhãn. Dữ liệu gốc được lưu cục bộ và bỏ qua bởi Git.
 
 ## T05–T06 và W02: Tiền xử lý, tăng cường dữ liệu, DataLoader
 
@@ -24,4 +24,4 @@ Kết quả 44,30% là output lưu trong notebook, chưa có checkpoint/log đ�
 
 Chạy các lệnh từ thư mục `BTL02_Emotion_Recognition`. Xem `README.md` để cài môi trường và `docs/TRAINING_BASELINE.md` cho quy trình huấn luyện lại. Dữ liệu gốc được Git bỏ qua; muốn tạo lưới ảnh mẫu hoặc chạy lại train cần đặt ảnh đúng cấu trúc trong `data/raw/`. Kiểm tra `git status` trước khi commit để tránh đưa dữ liệu hoặc checkpoint không dự định lên remote.
 
-Phần còn cần xác nhận thủ công: chạy `src/eda.py` trên ảnh FER2013 thật; đối chiếu hình mới với báo cáo Word/PDF; điền ngày, số giờ, link commit và link bản thảo này vào Work Log/Report Tracking. Chưa có cơ sở để tự ghi các trường đó thay Dương.
+Phần còn cần xác nhận thủ công: đối chiếu hình mới với báo cáo Word/PDF; điền số giờ và link commit cùng link bản thảo này vào Work Log/Report Tracking. Chưa có cơ sở để tự ghi số giờ thay Dương. Việc tạo môi trường đầy đủ cho training và thử DataLoader PyTorch chưa được kiểm chứng trong phiên này.

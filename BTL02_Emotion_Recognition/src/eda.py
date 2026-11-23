@@ -54,7 +54,8 @@ def run_eda(data_dir: Path = ROOT / "data/raw", output_dir: Path = ROOT / "resul
                     axes[row, col].imshow(image.convert("L"), cmap="gray", vmin=0, vmax=255)
                 axes[row, col].axis("off")
                 if col == 0:
-                    axes[row, col].set_ylabel(label)
+                    axes[row, col].text(-0.08, 0.5, label, transform=axes[row, col].transAxes,
+                                        ha="right", va="center", fontsize=10)
         fig.tight_layout()
         fig.savefig(sample_path, dpi=200)
         plt.close(fig)

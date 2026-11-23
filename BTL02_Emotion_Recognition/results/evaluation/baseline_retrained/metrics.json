@@ -1,0 +1,173 @@
+{
+  "split": "test",
+  "samples": 7178,
+  "loss": 1.34009414291807,
+  "accuracy": 0.484118138757314,
+  "macro_precision": 0.39253317655584896,
+  "macro_recall": 0.3968500299345596,
+  "macro_f1": 0.37933530061512427,
+  "weighted_f1": 0.46131566811528585,
+  "class_to_idx": {
+    "angry": 0,
+    "disgust": 1,
+    "fear": 2,
+    "happy": 3,
+    "neutral": 4,
+    "sad": 5,
+    "surprise": 6
+  },
+  "checkpoint": "C:\\NguyenXuanAnh\\MONHOC\\PYTHON\\btl\\HocSau-python\\checkpoints\\baseline_best.pth",
+  "checkpoint_sha256": "5697e8d1c69502a93e540762aa0b954458d5b5c5b5fdb6b7e74bffef97058297",
+  "data_dir": "C:\\NguyenXuanAnh\\MONHOC\\PYTHON\\btl\\HocSau-python\\data\\raw\\test",
+  "device": "cpu",
+  "selection_used": false,
+  "evaluation_note": "Chi xem la test doc lap neu tap nay chua tung duoc dung de chon model/hyperparameters.",
+  "preprocessing": "grayscale(1), ToTensor, Normalize(mean=0.5, std=0.5), no augmentation",
+  "filter_note": "conv3 weights, first 16 output filters, mean across 64 input channels; not feature maps or Grad-CAM",
+  "classification_report": {
+    "angry": {
+      "precision": 0.3935483870967742,
+      "recall": 0.12734864300626306,
+      "f1-score": 0.19242902208201892,
+      "support": 958.0
+    },
+    "disgust": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 111.0
+    },
+    "fear": {
+      "precision": 0.26666666666666666,
+      "recall": 0.21875,
+      "f1-score": 0.24034334763948498,
+      "support": 1024.0
+    },
+    "happy": {
+      "precision": 0.7249173098125689,
+      "recall": 0.7412626832018039,
+      "f1-score": 0.7329988851727982,
+      "support": 1774.0
+    },
+    "neutral": {
+      "precision": 0.39301101005265676,
+      "recall": 0.6658556366585564,
+      "f1-score": 0.4942805538832029,
+      "support": 1233.0
+    },
+    "sad": {
+      "precision": 0.35245220282626766,
+      "recall": 0.3400160384923817,
+      "f1-score": 0.3461224489795918,
+      "support": 1247.0
+    },
+    "surprise": {
+      "precision": 0.6171366594360087,
+      "recall": 0.6847172081829122,
+      "f1-score": 0.6491728465487735,
+      "support": 831.0
+    },
+    "accuracy": 0.484118138757314,
+    "macro avg": {
+      "precision": 0.39253317655584896,
+      "recall": 0.3968500299345596,
+      "f1-score": 0.37933530061512427,
+      "support": 7178.0
+    },
+    "weighted avg": {
+      "precision": 0.46991088958254085,
+      "recall": 0.484118138757314,
+      "f1-score": 0.46131566811528585,
+      "support": 7178.0
+    }
+  },
+  "training_metadata": {
+    "created_utc": "2026-11-22T16:02:05.447297+00:00",
+    "run_type": "new_training_run_by_XuanAnh_not_original_Nhi_checkpoint",
+    "architecture": "BaselineCNN matching notebooks/02_baseline.ipynb",
+    "class_to_idx": {
+      "angry": 0,
+      "disgust": 1,
+      "fear": 2,
+      "happy": 3,
+      "neutral": 4,
+      "sad": 5,
+      "surprise": 6
+    },
+    "seed": 42,
+    "epochs_requested": 3,
+    "batch_size": 128,
+    "learning_rate": 0.001,
+    "optimizer": "Adam",
+    "criterion": "CrossEntropyLoss",
+    "device": "cpu",
+    "threads": 4,
+    "torch_version": "2.14.0+cpu",
+    "train_counts": {
+      "excluded_conflicting_train_labels": {
+        "angry": 15,
+        "disgust": 4,
+        "fear": 18,
+        "happy": 1,
+        "neutral": 7,
+        "sad": 13,
+        "surprise": 15
+      },
+      "excluded_test_pixel_overlap": {
+        "angry": 116,
+        "disgust": 47,
+        "fear": 109,
+        "happy": 58,
+        "neutral": 48,
+        "sad": 50,
+        "surprise": 275
+      },
+      "test": {
+        "angry": 958,
+        "disgust": 111,
+        "fear": 1024,
+        "happy": 1774,
+        "neutral": 1233,
+        "sad": 1247,
+        "surprise": 831
+      },
+      "train": {
+        "angry": 3291,
+        "disgust": 327,
+        "fear": 3377,
+        "happy": 6082,
+        "neutral": 4172,
+        "sad": 4055,
+        "surprise": 2444
+      },
+      "validation": {
+        "angry": 573,
+        "disgust": 58,
+        "fear": 593,
+        "happy": 1074,
+        "neutral": 738,
+        "sad": 712,
+        "surprise": 437
+      }
+    },
+    "dataset_source": "https://www.kaggle.com/datasets/msambare/fer2013",
+    "archive_sha256": "9f3422c7a45b676c2965ef4fc5f3099932aa98fd13eaaa2c254f620a9894a6e9",
+    "selection_metric": "minimum validation cross-entropy",
+    "test_used_for_selection": false,
+    "train_transforms": "grayscale uint8 to float32 /255; independent horizontal flip p=0.5 per image; normalize (x-0.5)/0.5",
+    "validation_transforms": "grayscale uint8 to float32 /255; normalize (x-0.5)/0.5; no augmentation",
+    "split_policy": "seeded stratified split of unique decoded-pixel groups from train; excludes train pixel overlap with test and conflicting train-label groups",
+    "model_source_sha256": "f1bbec3a03625145a23255108cc9a935e719cc4351698cf366cb49d6152cd931",
+    "trainer_source_sha256": "f18a2a5bf249a41c3229483c086c4ef2067fe9a92883d67fcdb06a012e5e212e",
+    "manifest_sha256": "248dd712a001f5bedeb21916ca6174a2e1b0b9345ae2a5a3dad727a980c5fcc3",
+    "best_epoch": 3,
+    "best_val_loss": 1.3354150933888935,
+    "best_val_accuracy": 0.47096774193548385,
+    "best_val_macro_f1": 0.36502079697233153,
+    "checkpoint_sha256": "5697e8d1c69502a93e540762aa0b954458d5b5c5b5fdb6b7e74bffef97058297",
+    "epochs_completed": 3,
+    "elapsed_seconds": 312.01479990000007,
+    "parameter_count": 1274823,
+    "checkpoint_reload_verified": true
+  }
+}

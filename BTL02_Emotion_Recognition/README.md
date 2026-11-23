@@ -118,11 +118,11 @@ BT02_Emotion_Recognition/data/raw/
     ├── angry/, disgust/, fear/, happy/, sad/, surprise/, neutral/
 ```
 
-### Bước 3: Chạy các Notebook theo thứ tự
+### Bước 3: Kiểm tra dữ liệu và chạy EDA
 1. Chuẩn bị dữ liệu trong `data/raw/train/` và `data/raw/test/`. Nếu có bản CSV gốc, chạy `python src/prepare_fer2013.py` sau khi đặt `fer2013.csv` vào `data/raw/`.
-2. `notebooks/01_eda.ipynb` hiện chỉ có khung trống; cần khôi phục hoặc viết lại phần EDA trước khi dùng. Các hình đã lưu trong `results/` không thay thế cho code tái tạo hình.
+2. Chạy `python src/eda.py` hoặc `notebooks/01_eda.ipynb` để tạo lại biểu đồ phân phối từ `results/data_audit/dataset_audit.json`. Lưới ảnh mẫu chỉ được tạo lại khi có ảnh gốc trong `data/raw/train/`.
 3. Xem `docs/TRAINING_BASELINE.md` để biết cách kiểm định dữ liệu, huấn luyện lại và đánh giá checkpoint hiện có. Không chạy lại `src/train.py` khi chưa kiểm tra checkpoint và kết quả cũ vì chương trình từ chối ghi đè.
-4. `notebooks/02_baseline.ipynb` ghi lại thực nghiệm baseline cũ. `notebooks/03_experiments_and_evaluation.ipynb` dành cho phân tích và đánh giá; xem thêm `docs/EVALUATION_GUIDE.md`.
+4. `notebooks/02_baseline.ipynb` ghi lại thực nghiệm baseline cũ. `notebooks/03_experiments_and_evaluation.ipynb` dành cho phân tích và đánh giá; xem thêm `docs/EVALUATION_GUIDE.md` và bản thảo phần Dương trong `docs/DUONG_HANDOFF.md`.
 
 ---
 
@@ -146,8 +146,9 @@ BT02_Emotion_Recognition/data/raw/
 
 ## 7. Checklist nghiệm thu và bàn giao
 
-- [ ] Dương: khôi phục hoặc viết lại notebook EDA và lưu code tạo biểu đồ, ảnh mẫu.
-- [ ] Dương: đối chiếu T02/T03/T05/T06 với sản phẩm thật, bổ sung minh chứng và cập nhật Work Log.
-- [ ] Dương: hoàn thiện W02 (mô tả augmentation) và W06 (phân tích VGG16 với số tham số đúng).
-- [ ] Dương: hoàn thiện T19, kiểm tra hướng dẫn cài đặt và chạy từ thư mục `BTL02_Emotion_Recognition`.
+- [x] Dương: khôi phục notebook EDA và bổ sung code tạo lại biểu đồ, ảnh mẫu khi có dữ liệu gốc.
+- [x] Dương: chuẩn bị bản thảo W02 và W06 có nguồn số liệu, giới hạn kết luận trong `docs/DUONG_HANDOFF.md`.
+- [ ] Dương: chạy EDA trên ảnh thật, đối chiếu hình mới và xác nhận phần bàn giao.
+- [ ] Dương: cập nhật Work Log/Report Tracking bằng ngày, thời gian và link minh chứng thực tế.
+- [ ] Dương: kiểm tra hướng dẫn cài đặt trên máy dùng để nộp và hoàn tất T19.
 - [ ] Nhóm: rà soát báo cáo, demo, slide, các số liệu giữa những lần chạy và sản phẩm nộp.

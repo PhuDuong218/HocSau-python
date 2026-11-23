@@ -22,6 +22,16 @@ def run_eda(data_dir: Path = ROOT / "data/raw", output_dir: Path = ROOT / "resul
     for split in ("train", "test"):
         if set(counts[split]) != set(CLASSES):
             raise ValueError(f"Unexpected classes in {split} audit counts")
+        split_dir = data_dir / split
+        if split_dir.exists():
+            actual_classes = {p.name for p in split_dir.iterdir() if p.is_dir()}
+            if actual_classes != set(CLASSES):
+                raise ValueError(f"Unexpected classes in {split_dir}: {sorted(actual_classes)}")
+            for label in CLASSES:
+                actual = sum(p.is_file() and p.suffix.lower() in {".png", ".jpg", ".jpeg"}
+                             for p in (split_dir / label).iterdir())
+                if actual != counts[split][label]:
+                    raise ValueError(f"{split}/{label}: found {actual} images, audit expects {counts[split][label]}")
     output_dir.mkdir(parents=True, exist_ok=True)
 
     x = list(range(len(CLASSES)))

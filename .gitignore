@@ -10,3 +10,6 @@ checkpoints/*.pth
 __pycache__/
 .ipynb_checkpoints/
 *.pyc
+
+# Môi trường Python cục bộ của từng máy
+.venv/

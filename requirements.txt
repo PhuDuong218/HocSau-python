@@ -1,16 +1,28 @@
 --extra-index-url https://download.pytorch.org/whl/cu130
 
-# Deep learning (CUDA 13.0 build for NVIDIA GPU)
+# Deep Learning & Computer Vision Core 
 torch==2.14.1+cu130
 torchvision==0.29.1+cu130
 
-# Notebooks, xử lý dữ liệu và đánh giá
-jupyterlab==4.6.6
-ipykernel==7.4.0
+
+# Xử lý ảnh & Giao diện ứng dụng Demo (Streamlit + YuNet OpenCV)
+
+streamlit==1.67.0
+opencv-python==5.1.0.95
+pillow==13.0.0
+
+
+# Khoa học dữ liệu, Tính toán & Học máy (EDA, Huấn luyện, Đánh giá)
+
 numpy==2.5.4
 pandas==3.1.1
-pillow==13.0.0
-matplotlib==3.11.2
-seaborn==0.13.2
+scipy==1.18.1
 scikit-learn==1.9.1
 
+
+# Trực quan hóa dữ liệu & Báo cáo kết quả
+
+matplotlib==3.11.2
+seaborn==0.13.2
+jupyterlab==4.6.6
+ipykernel==7.4.0

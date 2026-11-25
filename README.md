@@ -1,6 +1,6 @@
 # BTL03 – Chuyển code từ Keras sang PyTorch
 
-> Repository này dùng chung cho nhóm thực hiện BTL03. Mục tiêu là chuyển các ví dụ Deep Learning từ Keras sang PyTorch, tổ chức mã nguồn thống nhất, kiểm thử dữ liệu và ghi lại kết quả có thể tái lập.
+> Repository này dùng chung cho nhóm thực hiện BTL03 trên repo **[PhuDuong218/HocSau-python](https://github.com/PhuDuong218/HocSau-python)** (nhánh làm việc: `btl03`). Mục tiêu là chuyển các ví dụ Deep Learning từ Keras sang PyTorch, tổ chức mã nguồn thống nhất, kiểm thử dữ liệu và ghi lại kết quả có thể tái lập.
 
 ## 1. Mục tiêu và phạm vi
 
@@ -17,14 +17,14 @@ Repository hiện được khởi tạo với phạm vi nền tảng **T01 (repo
 
 ## 2. Thành viên và nguyên tắc phối hợp
 
-Điền thông tin thành viên và nhiệm vụ được giao tại đây:
+Phân công công việc theo bảng theo dõi nhóm:
 
-| Thành viên | GitHub username | Nhiệm vụ chính | Nhiệm vụ hỗ trợ |
-|---|---|---|---|
-| Thành viên 1 | `@username` | … | … |
-| Thành viên 2 | `@username` | … | … |
-| Thành viên 3 | `@username` | … | … |
-| Thành viên 4 | `@username` | … | … |
+| Thành viên | GitHub username | Nhiệm vụ chính | Nhiệm vụ hỗ trợ | Nhánh làm việc |
+|---|---|---|---|---|
+| **Tuyết Nhi**  | `@TuyetNhi-Tech` | **T01, T02:** Quản lý Repo & Data Pipeline.<br>**T07:** Module 4 - SegNet Bàn tay.<br>**R01, R05:** Báo cáo Tổng quan & SegNet. | Review code toàn nhóm, tổng hợp báo cáo | `feature/T07-segnet` |
+| **Xuân Anh** | `@PhuDuong218` | **T03:** Module 1 - MLP (Xấp xỉ hàm & MNIST).<br>**R02:** Báo cáo kỹ thuật Module MLP. | Hỗ trợ kiểm thử pipeline | `feature/T03-mlp` |
+| **Phú Dương** | `@XuanAnh` | **T04, T05:** Module 2 - CNN (MNIST, Gender, FER2013).<br>**R03:** Báo cáo kỹ thuật Module CNN. | Tối ưu hóa siêu tham số | `feature/T04-T05-cnn` |
+| **Quốc Việt** | `@Viet` | **T06:** Module 3 - RNN/LSTM (MNIST Summation 7 ảnh).<br>**R04:** Báo cáo kỹ thuật Module LSTM. | Kiểm thử tính toán chuỗi | `feature/T06-lstm` |
 
 **Nguyên tắc làm việc**
 - Mỗi task có một người phụ trách chính (Owner); người hỗ trợ (Support) chỉ phối hợp trong phạm vi được giao.
@@ -45,7 +45,7 @@ BTL03_Keras_to_PyTorch/
 │   ├── README.md              # Hướng dẫn đặt dữ liệu
 │   ├── mnist/                  # MNIST tải qua Torchvision
 │   ├── gender/                 # Các file NPY dự đoán giới tính
-│   ├── fer2013/                # Các file CSV FER2013
+│   ├── fer2013/                # Thư mục ảnh train/ và test/ (7 lớp)
 │   └── segnet/
 │       ├── train/depth/
 │       ├── train/labels/
@@ -75,16 +75,17 @@ Một số thư mục có thể chưa xuất hiện cho đến khi task tương 
 
 ### 4.1. Yêu cầu
 
-- Python 3.10 hoặc 3.11 được khuyến nghị.
+- Python 3.10, 3.11 hoặc 3.12 được khuyến nghị.
 - Git.
 - VS Code hoặc IDE Python tương đương.
 - PyTorch và Torchvision. Nếu cần GPU NVIDIA, cài đúng bản PyTorch tương thích CUDA theo hướng dẫn chính thức của PyTorch; không tự chọn phiên bản CUDA theo phỏng đoán.
 
-### 4.2. Clone repository
+### 4.2. Clone repository và chuyển nhánh
 
 ```bash
-git clone <URL_REPOSITORY>
-cd BTL03_Keras_to_PyTorch
+git clone https://github.com/PhuDuong218/HocSau-python.git
+cd HocSau-python
+git checkout btl03
 ```
 
 ### 4.3. Tạo môi trường ảo
@@ -134,13 +135,13 @@ PyTorch sử dụng định dạng ảnh **Channels First**:
 |---|---|---|---|
 | MNIST | `[1, 28, 28]` | 10 chữ số | Torchvision MNIST |
 | Gender | `[1, 64, 64]` | 2 lớp | NPY ảnh và nhãn one-hot |
-| FER2013 | `[1, 48, 48]` | 7 cảm xúc | CSV gồm 2304 pixel + 7 cột one-hot |
-| Hand Depth | `[1, 96, 96]` | Mask 7 lớp | Ảnh depth và ảnh labels ghép cặp |
+| FER2013 | `[1, 48, 48]` | 7 cảm xúc | Thư mục ảnh `train/` và `test/` qua `ImageFolder` |
+| Hand Depth | `[1, 96, 96]` | Mask 7 lớp | Ảnh depth và ảnh labels ghép cặp (ánh xạ LUT) |
 
 Mapping FER2013 được pipeline hiện tại sử dụng:
-`0 angry, 1 disgust, 2 fear, 3 happy, 4 sad, 5 surprise, 6 neutral`.
+`0 angry, 1 disgust, 2 fear, 3 happy, 4 neutral, 5 sad, 6 surprise`.
 
-Mapping mask Hand Depth được ghi tại `docs/DATA_FORMATS.md`. Không tự đổi thứ tự nhãn nếu chưa đối chiếu notebook Keras gốc.
+Mapping mask Hand Depth được ánh xạ từ 7 giá trị pixel gốc `[0, 43, 85, 128, 170, 212, 255]` về class index `0..6` qua bảng tra cứu LUT tại `src/datasets.py`. Không tự đổi thứ tự nhãn nếu chưa đối chiếu notebook Keras gốc.
 
 ## 6. Chuẩn bị dữ liệu
 
@@ -161,14 +162,29 @@ MNIST được tải tự động qua Torchvision khi gọi loader với `downlo
 
 ### 6.3. FER2013
 
-Đặt hai file trong `data/fer2013/`:
+Cấu trúc thư mục ảnh tại `data/fer2013/`:
 
 ```text
-fer2013_training_onehot.csv
-fer2013_publictest_onehot.csv
+data/fer2013/
+├── train/
+│   ├── angry/
+│   ├── disgust/
+│   ├── fear/
+│   ├── happy/
+│   ├── neutral/
+│   ├── sad/
+│   └── surprise/
+└── test/
+    ├── angry/
+    ├── disgust/
+    ├── fear/
+    ├── happy/
+    ├── neutral/
+    ├── sad/
+    └── surprise/
 ```
 
-Mỗi dòng theo định dạng pipeline hiện tại phải có 2311 cột: 2304 pixel và 7 giá trị one-hot. Nếu file thực tế có header, dấu phân cách hoặc định dạng khác, cần kiểm tra và điều chỉnh có chủ đích; không xóa header hay sửa dữ liệu gốc tùy tiện.
+Dữ liệu được nạp tự động qua `torchvision.datasets.ImageFolder` với tiền xử lý chuyển thang xám 1 kênh, resize $48 \times 48$, data augmentation cho tập train và chuẩn hóa $[-1, 1]$.
 
 ### 6.4. Hand Depth
 
@@ -184,9 +200,9 @@ data/segnet/
     └── labels/
 ```
 
-Mỗi ảnh depth phải có ảnh mask tương ứng. Tên file mask trong bộ dữ liệu đi kèm có phần `_labels_` tương ứng với `_depth_` trong tên ảnh depth. Nếu thiếu cặp, Dataset sẽ báo lỗi.
+Mỗi ảnh depth phải có ảnh mask tương ứng. Tên file mask trong bộ dữ liệu đi kèm có phần `_labels_` tương ứng với `_depth_` trong tên ảnh depth. Pipeline tự động resize về $(96, 96)$ (ảnh depth dùng nội suy song tuyến tính, ảnh mask dùng phép lấy mẫu lân cận gần nhất NEAREST để giữ nguyên nhãn nguyên).
 
-**Lưu ý quản lý dữ liệu:** Không commit dataset lớn, dữ liệu có bản quyền hoặc dữ liệu cá nhân lên GitHub khi chưa được phép. Có thể lưu dữ liệu trên Drive dùng chung; README cần ghi đường dẫn và hướng dẫn tải, không đưa dữ liệu riêng tư vào repository công khai.
+**Lưu ý quản lý dữ liệu:** Không commit dataset lớn, dữ liệu có bản quyền hoặc dữ liệu cá nhân lên GitHub. Pipeline đã thiết lập `.gitignore` loại trừ thư mục `data/`.
 
 Chi tiết định dạng: xem [`docs/DATA_FORMATS.md`](docs/DATA_FORMATS.md).
 
@@ -211,7 +227,7 @@ hand_loaders = make_hand_depth_loaders("data/segnet", batch_size=8)
 Mỗi hàm trả về dictionary các split:
 - MNIST: `train`, `test`.
 - Gender: `train`, `validation`.
-- FER2013: `train`, `validation` (public test trong file nguồn được dùng làm split đánh giá theo pipeline hiện tại).
+- FER2013: `train`, `validation`.
 - Hand Depth: `train`, `test`.
 
 Ví dụ lấy một batch:
@@ -262,43 +278,42 @@ Mỗi thành viên thực hiện theo quy trình thống nhất:
 
 1. **Nhận task:** xác nhận Owner, Support, đầu vào, đầu ra và deadline trên bảng theo dõi.
 2. **Kiểm tra phụ thuộc:** xác nhận dữ liệu, file hoặc module từ người khác đã được bàn giao.
-3. **Tạo branch:** tạo branch riêng cho task.
+3. **Tạo branch:** tạo branch riêng cho task từ nhánh `btl03`.
 4. **Thực hiện:** chỉ sửa các file thuộc phạm vi task; không ghi đè thay đổi của người khác.
 5. **Kiểm thử:** chạy lệnh kiểm tra liên quan và lưu log/kết quả.
 6. **Commit:** commit nhỏ, có nội dung rõ ràng.
-7. **Pull Request:** tạo PR về `main`, ghi task ID, mô tả thay đổi, cách test và ảnh/log minh chứng.
-8. **Review:** ít nhất một thành viên khác xem xét trước khi merge.
+7. **Pull Request:** tạo PR về nhánh `btl03`, ghi task ID, mô tả thay đổi, cách test và ảnh/log minh chứng.
+8. **Review:** nhóm trưởng Tuyết Nhi hoặc ít nhất một thành viên khác xem xét trước khi merge.
 9. **Cập nhật tiến độ:** cập nhật Task Tracking, Work Log và link commit/PR.
 10. **Bàn giao:** ghi rõ file đã tạo/sửa, cách chạy, kết quả test, hạn chế còn tồn tại.
 
 ### Quy tắc branch và commit
 
-Tên branch:
+Tên branch phân công:
 ```text
-feature/T01-repository-setup
-feature/T02-data-pipeline
-feature/Txx-short-description
-fix/short-description
+feature/T03-mlp
+feature/T04-T05-cnn
+feature/T06-lstm
+feature/T07-segnet
 ```
 
-Commit message gợi ý:
+Commit message quy ước:
 ```text
-chore: initialize project structure
-feat(data): add MNIST dataset loader
-feat(data): add FER2013 CSV dataset
-fix(data): correct hand mask pairing
-test(data): add dataloader checks
-docs: explain dataset preparation
+feat(T03): implement MLP function approximation model and training loop
+feat(T04): implement CNN architecture for MNIST and gender classification
+feat(T05): convert emotion CNN with callbacks to PyTorch
+feat(T06): build LSTM sequence network for MNIST summation
+feat(T07): build SegNet encoder-decoder for hand depth segmentation
 ```
 
 Các lệnh Git thường dùng:
 ```bash
 git status
-git pull origin main
-git switch -c feature/Txx-short-description
+git pull origin btl03
+git switch -c feature/<TenBranch>
 git add <files>
-git commit -m "feat: describe change"
-git push -u origin feature/Txx-short-description
+git commit -m "feat: mo ta thay doi"
+git push -u origin feature/<TenBranch>
 ```
 
 Không dùng `git add .` một cách máy móc nếu thư mục có dataset, checkpoint hoặc file không thuộc task. Luôn xem `git status` trước khi commit.
@@ -378,14 +393,9 @@ Khi một task bị chặn:
 
 README này mô tả cách sử dụng repository và quy trình làm việc; nó không xác nhận tất cả task BTL03 đã hoàn thành.
 
-Tại thời điểm khởi tạo:
-- Có bộ khung T01 và module Dataset/DataLoader trong `src/datasets.py`.
-- MNIST có thể tải qua Torchvision.
-- Hand Depth có cấu trúc dữ liệu đi kèm trong gói khởi tạo.
-- Gender cần 4 file NPY nêu tại mục 6.2.
-- FER2013 cần 2 file CSV nêu tại mục 6.3.
-- Cần chạy `scripts/check_data.py` trên máy nhóm để xác nhận môi trường và dữ liệu thực tế.
-- Các phần MLP/CNN/RNN/Segmentation model, training, evaluation và báo cáo phải được triển khai, kiểm thử và ghi nhận theo task tương ứng.
+Tại thời điểm hiện tại:
+- **T01 & T02 (Hoàn thành):** Đã hoàn thiện cấu trúc dự án, môi trường, và Data Pipeline cho toàn bộ 4 bộ dữ liệu (MNIST, Gender, FER2013 dạng ImageFolder, SegNet ánh xạ LUT 7 lớp qua `scripts/check_data.py`).
+- Các module mô hình tiếp theo (T03 MLP, T04/T05 CNN, T06 LSTM, T07 SegNet) và các phần báo cáo R01–R06 sẽ được triển khai, kiểm thử và nghiệm thu theo đúng tiến độ được phân công.
 
 ## 15. Tài liệu tham khảo trong repository
 

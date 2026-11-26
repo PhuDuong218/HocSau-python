@@ -276,6 +276,26 @@ Kết quả kiểm tra cần xem:
 
 Nếu gặp lỗi `FileNotFoundError`, kiểm tra vị trí/tên file dữ liệu. Nếu lỗi shape, không sửa bằng cách reshape tùy tiện; hãy đối chiếu `docs/DATA_FORMATS.md` và notebook nguồn.
 
+## CNN của Dương (T04 và T05)
+
+- [T04 — MNIST và Gender](notebooks/02_cnn_gender.ipynb)
+- [T05 — FER2013](notebooks/02_cnn_fer2013.ipynb)
+- [Đối chiếu với Keras và kết quả thực nghiệm](docs/CNN_CONVERSION.md)
+
+Chạy từ thư mục BTL03. Các lệnh dưới đây tạo thư mục kết quả mới, gồm CSV theo epoch, JSON tổng hợp và trọng số được chọn theo validation loss.
+
+```powershell
+python -m src.train_cnn mnist --epochs 4 --optimizer adam --lr 0.001 --output-dir results/mnist_run
+python -m src.train_cnn gender --epochs 30 --output-dir results/gender_run
+python -m src.train_cnn fer2013 --epochs 12 --output-dir results/fer2013_run
+```
+
+Gender đọc bốn file NPY trong `data/gender/`. FER2013 đọc hai file one-hot CSV từ notebook thầy hoặc thư mục ảnh `train/` và `test/` trong `data/fer2013/`. Khi dùng lại ảnh và manifest của BTL02, truyền thêm hai tham số sau:
+
+```powershell
+python -m src.train_cnn fer2013 --data-dir ../BTL02_Emotion_Recognition/data/raw --split-manifest ../BTL02_Emotion_Recognition/results/training/baseline_seed42/split_manifest.csv --epochs 12 --output-dir results/fer2013_image_run
+```
+
 ## 9. Quy trình làm việc cho mỗi task
 
 Mỗi thành viên thực hiện theo quy trình thống nhất:

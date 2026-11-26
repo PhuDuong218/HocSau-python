@@ -18,18 +18,18 @@ Notebook in số tham số, kích thước tập, kết quả và vẽ đường
 
 ## Kết quả trên CPU
 
-Các lượt PyTorch chạy với seed 42 và batch 128. Số tham số được đếm trực tiếp trong PyTorch, khớp với model summary của cả ba notebook Keras.
+Các lượt PyTorch chạy với seed 42 và batch 128. Số tham số được đếm trực tiếp trong PyTorch, khớp với model summary của cả ba notebook Keras. Bảng ghi accuracy của checkpoint có validation loss thấp nhất.
 
 | Mô hình | Tham số | Epoch PyTorch | Validation accuracy | Test accuracy | Thời gian train và validation |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | MNIST | 1.817.610 | 4 | 98,92% | 99,24% | 709,39 giây |
-| Gender (LR 0,001) | 4.063.570 | 6 | 79,57% | — | 492,91 giây |
+| Gender | 4.063.570 | 30 | 87,60% | — | 3.183,22 giây |
 | FER2013 | 19.028.287 | 1 | 25,59% | 24,81% | 1.302,71 giây |
 
 - [Log MNIST](../results/mnist_cpu_seed42/history.csv) và [metrics MNIST](../results/mnist_cpu_seed42/metrics.json).
-- [Log Gender](../results/gender_keras_input_seed42/history.csv) và [metrics Gender](../results/gender_keras_input_seed42/metrics.json).
+- [Log Gender](../results/gender_full_seed42/history.csv), [metrics Gender](../results/gender_full_seed42/metrics.json) và [biểu đồ Gender](../results/gender_full_seed42/learning_curve.png). [Lượt Gender 6 epoch](../results/gender_keras_input_seed42/metrics.json) là phép kiểm tra ban đầu.
 - [Log FER2013](../results/fer2013_cpu_seed42/history.csv) và [metrics FER2013](../results/fer2013_cpu_seed42/metrics.json).
 
-MNIST đạt mốc tham chiếu 98,8%. Gender với LR 0,001 đạt 79,57% trên 5.968 ảnh validation, dưới mốc 87,7% và gần mức dự đoán lớp đa số (78,85%). Bộ Gender của giảng viên cung cấp tập train và validation. FER2013 đã chạy hết quy trình huấn luyện, lưu checkpoint, nạp lại và đánh giá. Sau một epoch, test accuracy xấp xỉ tỷ lệ lớp Happy trong tập test (24,71%). Lượt này xác minh pipeline chạy được. Để đánh giá chất lượng mô hình, cần huấn luyện thêm và so sánh trên cùng bộ chia dữ liệu.
+MNIST đạt mốc tham chiếu 98,8%. Gender lần đầu vượt mốc tham chiếu 87,7% ở epoch 21 (87,72%) và cao nhất ở epoch 23 (88,04%). Checkpoint lưu từ epoch 25 có validation loss thấp nhất (0,3258) và accuracy 87,60% trên 5.968 ảnh. Bộ Gender của giảng viên cung cấp tập train và validation. FER2013 đã chạy hết quy trình huấn luyện, lưu checkpoint, nạp lại và đánh giá. Sau một epoch, test accuracy xấp xỉ tỷ lệ lớp Happy trong tập test (24,71%). Lượt này xác minh pipeline chạy được. Để đánh giá chất lượng mô hình, cần huấn luyện thêm và so sánh trên cùng bộ chia dữ liệu.
 
 Log Keras trong ZIP ghi validation accuracy cao nhất là 98,85% (MNIST), 88,17% (Gender có callback) và 61,83% (FER2013 có augmentation). Các giá trị này lấy từ log có sẵn của giảng viên. MNIST và FER2013 sử dụng dữ liệu validation khác giữa hai lần chạy, và ngân sách epoch cũng khác nhau. Đối chiếu thời gian giữa CPU và GTX 1080 cần giữ thông tin thiết bị đi kèm.

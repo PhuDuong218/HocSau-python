@@ -153,7 +153,7 @@ MNIST được tải tự động qua Torchvision khi gọi loader với `downlo
 
 ### 6.2. Human Gender
 
-Đặt bốn file đúng tên trong `data/gender/`:
+Tải [bốn file NPY từ thư mục của giảng viên](https://drive.google.com/drive/folders/0BxINLo5jshCRYW8xODhNSlkyLTQ?resourcekey=0-RNJvvSSE67Q1bMqQi3A1RQ) và đặt trong `data/gender/` với các tên sau:
 
 ```text
 64_64_11938_4098_train_x_onehot.npy
@@ -190,7 +190,7 @@ Dữ liệu được nạp qua `torchvision.datasets.ImageFolder`. DataLoader d�
 
 ### 6.4. Hand Depth
 
-Cấu trúc thư mục:
+Giải nén `5. Others/depth_hand.zip` trong gói `examples.zip` của giảng viên để có cấu trúc thư mục sau:
 
 ```text
 data/segnet/
@@ -288,11 +288,11 @@ Chạy từ thư mục BTL03. Các lệnh dưới đây tạo thư mục kết q
 
 ```powershell
 python -m src.train_cnn mnist --epochs 4 --optimizer adam --lr 0.001 --output-dir results/mnist_run
-python -m src.train_cnn gender --epochs 30 --output-dir results/gender_run
+python -m src.train_cnn gender --epochs 30 --threads 8 --output-dir results/gender_run
 python -m src.train_cnn fer2013 --epochs 12 --output-dir results/fer2013_run
 ```
 
-Gender đọc bốn file NPY trong `data/gender/`. FER2013 đọc hai file one-hot CSV từ notebook thầy hoặc thư mục ảnh `train/` và `test/` trong `data/fer2013/`. Khi dùng lại ảnh và manifest của BTL02, truyền thêm hai tham số sau:
+Gender đọc bốn file NPY trong `data/gender/`. Với FER2013, đặt `fer2013_training_onehot.csv` và `fer2013_publictest_onehot.csv` từ [thư mục của giảng viên](https://drive.google.com/drive/folders/0BxINLo5jshCRbXpRcnl2SjJkdlk?resourcekey=0-7qr7Ro7hgkmFknsN1yParQ) trong `data/fer2013/` hoặc dùng hai thư mục ảnh `train/` và `test/`. Khi dùng lại ảnh và manifest của BTL02, truyền thêm hai tham số sau:
 
 ```powershell
 python -m src.train_cnn fer2013 --data-dir ../BTL02_Emotion_Recognition/data/raw --split-manifest ../BTL02_Emotion_Recognition/results/training/baseline_seed42/split_manifest.csv --epochs 12 --output-dir results/fer2013_image_run

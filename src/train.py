@@ -296,11 +296,41 @@ def train(epochs=3, seed=42, batch_size=128, lr=0.001, val_fraction=0.15, thread
 
 if __name__ == '__main__':
     p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--model', type=str, default='baseline', choices=['baseline', 'small', 'medium', 'vgg16'],
+                   help='Loại mô hình cần huấn luyện: baseline | small | medium | vgg16')
     p.add_argument('--epochs', type=int, default=3)
     p.add_argument('--seed', type=int, default=42)
     p.add_argument('--batch-size', type=int, default=128)
-    p.add_argument('--lr', type=float, default=0.001)
+    p.add_argument('--lr', type=float, default=None)
     p.add_argument('--val-fraction', type=float, default=0.15)
     p.add_argument('--threads', type=int, default=4)
     args = p.parse_args()
-    train(args.epochs, args.seed, args.batch_size, args.lr, args.val_fraction, args.threads)
+
+    if args.model == 'baseline':
+        learning_rate = args.lr if args.lr is not None else 0.001
+        train(args.epochs, args.seed, args.batch_size, learning_rate, args.val_fraction, args.threads)
+    else:
+        # Huấn luyện mô hình thử nghiệm trên GPU CUDA
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        print(f"--> Khởi động huấn luyện mô hình: {args.model.upper()} trên thiết bị: {device}")
+        
+        train_dir = ROOT / "data/raw/train"
+        test_dir = ROOT / "data/raw/test"
+        train_loader, test_loader, classes = get_dataloaders(
+            train_dir=str(train_dir), test_dir=str(test_dir), batch_size=args.batch_size, num_workers=0
+        )
+        
+        if args.model == 'vgg16':
+            model = VGG16_FailCase(num_classes=7)
+            lr = args.lr if args.lr is not None else 0.0001
+            ckpt_path = str(ROOT / "checkpoints/vgg16_best.pth")
+        elif args.model == 'small':
+            model = SmallCNN(num_classes=7)
+            lr = args.lr if args.lr is not None else 0.001
+            ckpt_path = str(ROOT / "checkpoints/small_best.pth")
+        elif args.model == 'medium':
+            model = Medium01CNN(num_classes=7)
+            lr = args.lr if args.lr is not None else 0.001
+            ckpt_path = str(ROOT / "checkpoints/medium_best.pth")
+
+        train_model(model, train_loader, test_loader, epochs=args.epochs, lr=lr, device=device, checkpoint_path=ckpt_path)

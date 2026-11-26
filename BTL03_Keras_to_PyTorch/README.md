@@ -13,7 +13,7 @@ Các nhóm bài toán được nêu trong tài liệu:
 3. **RNN/LSTM** – MNIST Summation, chuỗi gồm 7 ảnh chữ số và dự đoán tổng.
 4. **Image Segmentation** – phân đoạn ảnh độ sâu bàn tay (Hand Depth, 96×96).
 
-Repository hiện được khởi tạo với phạm vi nền tảng **T01 (repo/môi trường)** và **T02 (Dataset/DataLoader)**. Các module mô hình, huấn luyện, đánh giá và báo cáo sẽ được bổ sung theo phân công của nhóm; không coi là đã hoàn thành chỉ vì đã có cấu trúc thư mục.
+Repository có nền tảng **T01 (repo/môi trường)** và **T02 (Dataset/DataLoader)**. Các notebook CNN của **T04 và T05** cùng lệnh huấn luyện được mô tả ở mục CNN.
 
 ## 2. Thành viên và nguyên tắc phối hợp
 
@@ -90,6 +90,8 @@ git checkout btl03
 
 ### 4.3. Tạo môi trường ảo
 
+Trên nhánh `Duong`, dự án nằm trong thư mục `BTL03_Keras_to_PyTorch`: chạy `cd BTL03_Keras_to_PyTorch` từ gốc repository trước các lệnh cài đặt và chạy bên dưới. Trên nhánh `btl03` gốc, các file dự án hiện nằm ở gốc repository.
+
 **Windows PowerShell:**
 ```powershell
 py -3.11 -m venv .venv
@@ -151,7 +153,7 @@ MNIST được tải tự động qua Torchvision khi gọi loader với `downlo
 
 ### 6.2. Human Gender
 
-Đặt bốn file đúng tên trong `data/gender/`:
+Tải [bốn file NPY từ thư mục của giảng viên](https://drive.google.com/drive/folders/0BxINLo5jshCRYW8xODhNSlkyLTQ?resourcekey=0-RNJvvSSE67Q1bMqQi3A1RQ) và đặt trong `data/gender/` với các tên sau:
 
 ```text
 64_64_11938_4098_train_x_onehot.npy
@@ -184,11 +186,11 @@ data/fer2013/
     └── surprise/
 ```
 
-Dữ liệu được nạp tự động qua `torchvision.datasets.ImageFolder` với tiền xử lý chuyển thang xám 1 kênh, resize $48 \times 48$, data augmentation cho tập train và chuẩn hóa $[-1, 1]$.
+Dữ liệu được nạp qua `torchvision.datasets.ImageFolder`. DataLoader dùng chung chuẩn hóa về $[-1, 1]$. Trainer CNN dùng cấu hình riêng được mô tả trong [tài liệu đối chiếu](docs/CNN_CONVERSION.md).
 
 ### 6.4. Hand Depth
 
-Cấu trúc thư mục:
+Giải nén `5. Others/depth_hand.zip` trong gói `examples.zip` của giảng viên để có cấu trúc thư mục sau:
 
 ```text
 data/segnet/
@@ -205,6 +207,8 @@ Mỗi ảnh depth phải có ảnh mask tương ứng. Tên file mask trong bộ
 **Lưu ý quản lý dữ liệu:** Không commit dataset lớn, dữ liệu có bản quyền hoặc dữ liệu cá nhân lên GitHub. Pipeline đã thiết lập `.gitignore` loại trừ thư mục `data/`.
 
 Chi tiết định dạng: xem [`docs/DATA_FORMATS.md`](docs/DATA_FORMATS.md).
+
+**Lưu ý:** `docs/DATA_FORMATS.md` hiện còn mô tả FER2013 dạng CSV, cách xoay ảnh gender và mapping mask khác với `src/datasets.py`. Cần đối chiếu dữ liệu và notebook gốc trước khi dùng các mô tả đó cho thực nghiệm; code hiện dùng thư mục ảnh FER2013 và LUT trong `src/datasets.py`.
 
 ## 7. Sử dụng Dataset và DataLoader
 
@@ -271,6 +275,28 @@ Kết quả kiểm tra cần xem:
 - Số lượng ảnh và mask có khớp không.
 
 Nếu gặp lỗi `FileNotFoundError`, kiểm tra vị trí/tên file dữ liệu. Nếu lỗi shape, không sửa bằng cách reshape tùy tiện; hãy đối chiếu `docs/DATA_FORMATS.md` và notebook nguồn.
+
+## CNN của Dương (T04 và T05)
+
+- [T04 — MNIST và Gender](notebooks/02_cnn_gender.ipynb)
+- [T05 — FER2013](notebooks/02_cnn_fer2013.ipynb)
+- [Đối chiếu với Keras và kết quả thực nghiệm](docs/CNN_CONVERSION.md)
+
+Để mở notebook, cài thêm `jupyterlab` trong môi trường dự án và chạy `python -m jupyterlab` từ thư mục BTL03.
+
+Chạy từ thư mục BTL03. Các lệnh dưới đây tạo thư mục kết quả mới, gồm CSV theo epoch, JSON tổng hợp và trọng số được chọn theo validation loss.
+
+```powershell
+python -m src.train_cnn mnist --epochs 4 --optimizer adam --lr 0.001 --output-dir results/mnist_run
+python -m src.train_cnn gender --epochs 30 --threads 8 --output-dir results/gender_run
+python -m src.train_cnn fer2013 --epochs 12 --output-dir results/fer2013_run
+```
+
+Gender đọc bốn file NPY trong `data/gender/`. Với FER2013, đặt `fer2013_training_onehot.csv` và `fer2013_publictest_onehot.csv` từ [thư mục của giảng viên](https://drive.google.com/drive/folders/0BxINLo5jshCRbXpRcnl2SjJkdlk?resourcekey=0-7qr7Ro7hgkmFknsN1yParQ) trong `data/fer2013/` hoặc dùng hai thư mục ảnh `train/` và `test/`. Khi dùng lại ảnh và manifest của BTL02, truyền thêm hai tham số sau:
+
+```powershell
+python -m src.train_cnn fer2013 --data-dir ../BTL02_Emotion_Recognition/data/raw --split-manifest ../BTL02_Emotion_Recognition/results/training/baseline_seed42/split_manifest.csv --epochs 12 --output-dir results/fer2013_image_run
+```
 
 ## 9. Quy trình làm việc cho mỗi task
 
@@ -395,7 +421,7 @@ README này mô tả cách sử dụng repository và quy trình làm việc; n�
 
 Tại thời điểm hiện tại:
 - **T01 & T02 (Hoàn thành):** Đã hoàn thiện cấu trúc dự án, môi trường, và Data Pipeline cho toàn bộ 4 bộ dữ liệu (MNIST, Gender, FER2013 dạng ImageFolder, SegNet ánh xạ LUT 7 lớp qua `scripts/check_data.py`).
-- Các module mô hình tiếp theo (T03 MLP, T04/T05 CNN, T06 LSTM, T07 SegNet) và các phần báo cáo R01–R06 sẽ được triển khai, kiểm thử và nghiệm thu theo đúng tiến độ được phân công.
+- **T04 & T05:** Đã chuyển đổi MNIST CNN, Gender CNN và FER2013 CNN. Xem [kết quả thực nghiệm](docs/CNN_CONVERSION.md) để đối chiếu các mốc nghiệm thu.
 
 ## 15. Tài liệu tham khảo trong repository
 

@@ -1,0 +1,26 @@
+{
+  "dataset": "gender",
+  "seed": 42,
+  "device": "cpu",
+  "batch_size": 128,
+  "initial_lr": 0.001,
+  "optimizer": "adam",
+  "epochs_requested": 30,
+  "epochs_completed": 30,
+  "best_epoch": 25,
+  "parameters": 4063570,
+  "train_samples": 11938,
+  "validation_samples": 5968,
+  "test_samples": 0,
+  "split_manifest": null,
+  "classes": [
+    "female",
+    "male"
+  ],
+  "validation": {
+    "loss": 0.32582124340630086,
+    "accuracy": 0.8760053619302949
+  },
+  "test": null,
+  "training_seconds": 3183.2217119000006
+}

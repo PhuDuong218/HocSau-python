@@ -26,17 +26,24 @@ EXPECTED = {
 }
 
 
-def get_transforms():
+def get_transforms(augmentation="baseline"):
     """
     Trả về transforms cho tập train (có Augmentation) và tập test (chỉ chuẩn hóa)
     Dữ liệu FER2013 là ảnh mức xám (Grayscale 1 kênh), kích thước 48x48.
     """
-    train_transform = transforms.Compose([
-        transforms.Grayscale(num_output_channels=1),
-        transforms.RandomHorizontalFlip(),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.5], std=[0.5])
-    ])
+    if augmentation not in {"baseline", "extended", "none"}:
+        raise ValueError("augmentation must be baseline, extended, or none")
+    train_steps = [transforms.Grayscale(num_output_channels=1)]
+    if augmentation == "baseline":
+        train_steps.append(transforms.RandomHorizontalFlip(p=0.5))
+    elif augmentation == "extended":
+        train_steps.extend([
+            transforms.RandomRotation(degrees=10),
+            transforms.RandomHorizontalFlip(p=0.5),
+            transforms.RandomAffine(degrees=0, translate=(0.1, 0.1)),
+        ])
+    train_steps.extend([transforms.ToTensor(), transforms.Normalize(mean=[0.5], std=[0.5])])
+    train_transform = transforms.Compose(train_steps)
 
     test_transform = transforms.Compose([
         transforms.Grayscale(num_output_channels=1),
@@ -47,11 +54,14 @@ def get_transforms():
     return train_transform, test_transform
 
 
-def get_dataloaders(train_dir="../data/raw/train", test_dir="../data/raw/test", batch_size=128, num_workers=0):
+def get_dataloaders(train_dir=None, test_dir=None, batch_size=128, num_workers=0,
+                    augmentation="baseline"):
     """
     Khởi tạo DataLoader cho cả train và test dựa trên cấu trúc thư mục ImageFolder.
     """
-    train_transform, test_transform = get_transforms()
+    train_transform, test_transform = get_transforms(augmentation)
+    train_dir = Path(train_dir) if train_dir is not None else ROOT / "data/raw/train"
+    test_dir = Path(test_dir) if test_dir is not None else ROOT / "data/raw/test"
 
     train_dataset = datasets.ImageFolder(root=train_dir, transform=train_transform)
     test_dataset = datasets.ImageFolder(root=test_dir, transform=test_transform)
@@ -59,6 +69,8 @@ def get_dataloaders(train_dir="../data/raw/train", test_dir="../data/raw/test", 
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=num_workers)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=num_workers)
 
+    if train_dataset.classes != test_dataset.classes:
+        raise ValueError("Train/test class mappings differ")
     return train_loader, test_loader, train_dataset.classes
 
 

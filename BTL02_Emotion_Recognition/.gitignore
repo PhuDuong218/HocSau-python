@@ -3,7 +3,7 @@ data/raw/
 *.tar.gz
 *.zip
 
-# Bỏ qua checkpoints mô hình nặng 
+# Bỏ qua checkpoints mô hình nặng
 checkpoints/*.pth
 checkpoints/*.pth.tmp
 checkpoints/*.pt

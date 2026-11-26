@@ -27,7 +27,7 @@ def make_mnist_loaders(data_dir="data/mnist", batch_size=128):
 # 2. DATASET: HUMAN GENDER (Ảnh NPY 64x64)
 # ==========================================
 class NpyGenderDataset(Dataset):
-    def __init__(self, x_path, y_path):
+    def __init__(self, x_path, y_path, *, scale_pixels=True):
         if not os.path.exists(x_path) or not os.path.exists(y_path):
             raise FileNotFoundError(f"Không tìm thấy file: {x_path} hoặc {y_path}")
 
@@ -42,7 +42,7 @@ class NpyGenderDataset(Dataset):
             raw_x = np.transpose(raw_x, (0, 3, 1, 2))
 
         # Scale giá trị pixel về float32 trong khoảng [0, 1]
-        if raw_x.max() > 1.0:
+        if scale_pixels and raw_x.max() > 1.0:
             raw_x = raw_x.astype(np.float32) / 255.0
         else:
             raw_x = raw_x.astype(np.float32)
@@ -60,14 +60,14 @@ class NpyGenderDataset(Dataset):
     def __getitem__(self, idx):
         return self.x[idx], self.y[idx]
 
-def make_gender_loaders(data_dir="data/gender", batch_size=128):
+def make_gender_loaders(data_dir="data/gender", batch_size=128, *, scale_pixels=True):
     train_x = os.path.join(data_dir, "64_64_11938_4098_train_x_onehot.npy")
     train_y = os.path.join(data_dir, "64_64_11938_4098_train_y_onehot.npy")
     val_x = os.path.join(data_dir, "64_64_5968_4098_val_x_onehot.npy")
     val_y = os.path.join(data_dir, "64_64_5968_4098_val_y_onehot.npy")
 
-    train_ds = NpyGenderDataset(train_x, train_y)
-    val_ds = NpyGenderDataset(val_x, val_y)
+    train_ds = NpyGenderDataset(train_x, train_y, scale_pixels=scale_pixels)
+    val_ds = NpyGenderDataset(val_x, val_y, scale_pixels=scale_pixels)
 
     return {
         "train": DataLoader(train_ds, batch_size=batch_size, shuffle=True, num_workers=0),

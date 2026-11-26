@@ -10,8 +10,26 @@ T04 dùng `1_MNIST_CNN.ipynb` và `4. Training Utilities/2_Human_Gender_CNN.ipyn
 
 PyTorch dùng tensor NCHW và nhãn chỉ số nguyên. Mô hình xuất logits cho `CrossEntropyLoss`. Trainer lưu checkpoint có validation loss thấp nhất và nạp lại trước khi đo test. EarlyStopping dừng sau 5 epoch không tốt hơn theo mặc định. ReduceLROnPlateau theo dõi validation loss, nhân learning rate với 0,1 sau 5 epoch chững, với ngưỡng dưới 0,0001. Tăng `--patience` nếu muốn để mô hình chạy thêm sau khi giảm learning rate.
 
-MNIST dùng ảnh trong [0,1] như notebook gốc. Lượt chạy nhanh dùng Adam với learning rate 0,001, còn SGD 0,01 là cấu hình mặc định theo notebook Keras. Gender dùng cách xoay NPY 90° theo chiều kim đồng hồ và tập validation được cung cấp. FER2013 mô phỏng phép xoay ±45°, tịnh tiến tối đa 20% và lật ngang của ImageDataGenerator qua torchvision. Padding theo biên và nội suy song tuyến tính là cách triển khai tương ứng; thứ tự phép biến đổi và quy tắc làm tròn có thể sai khác nhỏ. Validation và test dùng phép biến đổi xác định.
+MNIST dùng ảnh trong [0,1] như notebook gốc. Lượt chạy nhanh dùng Adam với learning rate 0,001, còn SGD 0,01 là cấu hình mặc định theo notebook Keras. Gender xoay NPY 90° theo chiều kim đồng hồ, giữ cường độ gốc [0,255], khởi tạo Glorot uniform với bias bằng 0 và dùng tập validation được cung cấp. FER2013 mô phỏng phép xoay ±45°, tịnh tiến tối đa 20% và lật ngang của ImageDataGenerator qua torchvision. Padding theo biên và nội suy song tuyến tính là cách triển khai tương ứng; thứ tự phép biến đổi và quy tắc làm tròn có thể sai khác nhỏ. Validation và test dùng phép biến đổi xác định.
 
 FER2013 hỗ trợ cả CSV one-hot gốc và dữ liệu ảnh. Với CSV, thứ tự nhãn theo notebook (Sad, Surprise, Neutral ở cuối). Với thư mục ảnh, thứ tự theo ImageFolder (Neutral, Sad, Surprise ở cuối). Xem `classes` trong JSON của mỗi lượt chạy. Lượt chạy trên ảnh BTL02 dùng manifest đã lọc trùng pixel và tập test gộp Public/Private, vì vậy không dùng số đo đó để suy ra chênh lệch trực tiếp với kết quả Keras trên CSV PublicTest.
 
 Notebook in số tham số, kích thước tập, kết quả và vẽ đường cong từ CSV. Mốc 98,8% của MNIST và 87,7% của Gender là mốc tham chiếu trong bảng công việc. Chỉ dùng JSON và CSV của các lượt chạy thật khi báo cáo kết quả PyTorch.
+
+## Kết quả trên CPU
+
+Các lượt PyTorch chạy với seed 42 và batch 128. Số tham số được đếm trực tiếp trong PyTorch, khớp với model summary của cả ba notebook Keras.
+
+| Mô hình | Tham số | Epoch PyTorch | Validation accuracy | Test accuracy | Thời gian train và validation |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| MNIST | 1.817.610 | 4 | 98,92% | 99,24% | 709,39 giây |
+| Gender (LR 0,001) | 4.063.570 | 6 | 79,57% | — | 492,91 giây |
+| FER2013 | 19.028.287 | 1 | 25,59% | 24,81% | 1.302,71 giây |
+
+- [Log MNIST](../results/mnist_cpu_seed42/history.csv) và [metrics MNIST](../results/mnist_cpu_seed42/metrics.json).
+- [Log Gender](../results/gender_keras_input_seed42/history.csv) và [metrics Gender](../results/gender_keras_input_seed42/metrics.json).
+- [Log FER2013](../results/fer2013_cpu_seed42/history.csv) và [metrics FER2013](../results/fer2013_cpu_seed42/metrics.json).
+
+MNIST đạt mốc tham chiếu 98,8%. Gender với LR 0,001 đạt 79,57% trên 5.968 ảnh validation, dưới mốc 87,7% và gần mức dự đoán lớp đa số (78,85%). Bộ Gender của giảng viên cung cấp tập train và validation. FER2013 đã chạy hết quy trình huấn luyện, lưu checkpoint, nạp lại và đánh giá. Sau một epoch, test accuracy xấp xỉ tỷ lệ lớp Happy trong tập test (24,71%). Lượt này xác minh pipeline chạy được. Để đánh giá chất lượng mô hình, cần huấn luyện thêm và so sánh trên cùng bộ chia dữ liệu.
+
+Log Keras trong ZIP ghi validation accuracy cao nhất là 98,85% (MNIST), 88,17% (Gender có callback) và 61,83% (FER2013 có augmentation). Các giá trị này lấy từ log có sẵn của giảng viên. MNIST và FER2013 sử dụng dữ liệu validation khác giữa hai lần chạy, và ngân sách epoch cũng khác nhau. Đối chiếu thời gian giữa CPU và GTX 1080 cần giữ thông tin thiết bị đi kèm.

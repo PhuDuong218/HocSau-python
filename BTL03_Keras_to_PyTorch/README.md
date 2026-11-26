@@ -13,7 +13,7 @@ Các nhóm bài toán được nêu trong tài liệu:
 3. **RNN/LSTM** – MNIST Summation, chuỗi gồm 7 ảnh chữ số và dự đoán tổng.
 4. **Image Segmentation** – phân đoạn ảnh độ sâu bàn tay (Hand Depth, 96×96).
 
-Repository hiện được khởi tạo với phạm vi nền tảng **T01 (repo/môi trường)** và **T02 (Dataset/DataLoader)**. Các module mô hình, huấn luyện, đánh giá và báo cáo sẽ được bổ sung theo phân công của nhóm; không coi là đã hoàn thành chỉ vì đã có cấu trúc thư mục.
+Repository có nền tảng **T01 (repo/môi trường)** và **T02 (Dataset/DataLoader)**. Các notebook CNN của **T04 và T05** cùng lệnh huấn luyện được mô tả ở mục CNN.
 
 ## 2. Thành viên và nguyên tắc phối hợp
 
@@ -186,7 +186,7 @@ data/fer2013/
     └── surprise/
 ```
 
-Dữ liệu được nạp tự động qua `torchvision.datasets.ImageFolder` với tiền xử lý chuyển thang xám 1 kênh, resize $48 \times 48$, data augmentation cho tập train và chuẩn hóa $[-1, 1]$.
+Dữ liệu được nạp qua `torchvision.datasets.ImageFolder`. DataLoader dùng chung chuẩn hóa về $[-1, 1]$. Trainer CNN dùng cấu hình riêng được mô tả trong [tài liệu đối chiếu](docs/CNN_CONVERSION.md).
 
 ### 6.4. Hand Depth
 
@@ -281,6 +281,8 @@ Nếu gặp lỗi `FileNotFoundError`, kiểm tra vị trí/tên file dữ liệ
 - [T04 — MNIST và Gender](notebooks/02_cnn_gender.ipynb)
 - [T05 — FER2013](notebooks/02_cnn_fer2013.ipynb)
 - [Đối chiếu với Keras và kết quả thực nghiệm](docs/CNN_CONVERSION.md)
+
+Để mở notebook, cài thêm `jupyterlab` trong môi trường dự án và chạy `python -m jupyterlab` từ thư mục BTL03.
 
 Chạy từ thư mục BTL03. Các lệnh dưới đây tạo thư mục kết quả mới, gồm CSV theo epoch, JSON tổng hợp và trọng số được chọn theo validation loss.
 
@@ -419,7 +421,7 @@ README này mô tả cách sử dụng repository và quy trình làm việc; n�
 
 Tại thời điểm hiện tại:
 - **T01 & T02 (Hoàn thành):** Đã hoàn thiện cấu trúc dự án, môi trường, và Data Pipeline cho toàn bộ 4 bộ dữ liệu (MNIST, Gender, FER2013 dạng ImageFolder, SegNet ánh xạ LUT 7 lớp qua `scripts/check_data.py`).
-- Các module mô hình tiếp theo (T03 MLP, T04/T05 CNN, T06 LSTM, T07 SegNet) và các phần báo cáo R01–R06 sẽ được triển khai, kiểm thử và nghiệm thu theo đúng tiến độ được phân công.
+- **T04 & T05:** Đã chuyển đổi MNIST CNN, Gender CNN và FER2013 CNN. Xem [kết quả thực nghiệm](docs/CNN_CONVERSION.md) để đối chiếu các mốc nghiệm thu.
 
 ## 15. Tài liệu tham khảo trong repository
 

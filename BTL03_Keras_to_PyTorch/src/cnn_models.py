@@ -25,4 +25,11 @@ def build_model(dataset):
         layers.extend([nn.Linear(features, units), nn.ReLU(), nn.Dropout(head_dropout)])
         features = units
     layers.append(nn.Linear(features, classes))
-    return nn.Sequential(*layers)
+    model = nn.Sequential(*layers)
+    if dataset == "gender":
+        # Match Keras defaults for the deep Gender CNN.
+        for layer in model.modules():
+            if isinstance(layer, (nn.Conv2d, nn.Linear)):
+                nn.init.xavier_uniform_(layer.weight)
+                nn.init.zeros_(layer.bias)
+    return model

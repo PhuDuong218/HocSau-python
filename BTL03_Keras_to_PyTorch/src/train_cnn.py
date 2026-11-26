@@ -32,7 +32,8 @@ class FerOneHotCsv(Dataset):
             np.isin(labels, [0, 1]).all() and (labels.sum(axis=1) == 1).all()
         ):
             raise ValueError(f"Invalid pixel range or one-hot labels in {path}")
-        scale = 255 if pixels.max() <= 1 else 1
+        self.unit_pixels = pixels.max() <= 1
+        scale = 255 if self.unit_pixels else 1
         self.images = np.rint(pixels * scale).astype(np.uint8).reshape(-1, 48, 48)
         self.targets = labels.argmax(axis=1)
         self.transform = None
@@ -55,7 +56,7 @@ def make_splits(dataset, root, seed, manifest):
             raise ValueError("The split manifest requires FER2013 image folders")
         train, test = FerOneHotCsv(csv_train), FerOneHotCsv(csv_test)
     else:
-        loaders = factory(root)
+        loaders = factory(root, scale_pixels=False) if dataset == "gender" else factory(root)
         train = loaders["train"].dataset
         if dataset == "gender":
             validation = loaders["validation"].dataset
@@ -69,14 +70,21 @@ def make_splits(dataset, root, seed, manifest):
         if train.class_to_idx != test.class_to_idx or len(train.classes) != 7:
             raise ValueError("FER2013 requires the same seven class folders in train and test")
         base = [transforms.Grayscale(1), transforms.Resize((48, 48))]
+        # Keep the source CSV's scale. The ImageFolder variant uses unit pixels.
+        to_tensor = [transforms.ToTensor()]
+        if isinstance(train, FerOneHotCsv):
+            if train.unit_pixels != test.unit_pixels:
+                raise ValueError("FER2013 CSV pixel scales differ between train and PublicTest")
+            if not train.unit_pixels:
+                to_tensor = [transforms.PILToTensor(), transforms.Lambda(torch.Tensor.float)]
         train.transform = transforms.Compose([
             *base, transforms.Pad(48, padding_mode="edge"),
             # The padded canvas is three times wider than the original.
             transforms.RandomAffine(45, translate=(0.2 / 3, 0.2 / 3),
                                     interpolation=transforms.InterpolationMode.BILINEAR),
-            transforms.CenterCrop(48), transforms.RandomHorizontalFlip(), transforms.ToTensor(),
+            transforms.CenterCrop(48), transforms.RandomHorizontalFlip(), *to_tensor,
         ])
-        test.transform = transforms.Compose([*base, transforms.ToTensor()])
+        test.transform = transforms.Compose([*base, *to_tensor])
     validation = copy.copy(train)
     validation.transform = test.transform
     if manifest:

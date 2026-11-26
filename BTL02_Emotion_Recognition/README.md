@@ -154,7 +154,10 @@ Trên máy này đã kiểm thử Python 3.12.14, PyTorch 2.15.0 CPU, torchvisio
 - [x] Dương: khôi phục notebook EDA và bổ sung code tạo lại biểu đồ, ảnh mẫu khi có dữ liệu gốc.
 - [x] Dương: chuẩn bị bản thảo W02 và W06 có nguồn số liệu, giới hạn kết luận trong `docs/DUONG_HANDOFF.md`.
 - [x] Dương: chạy EDA trên ảnh thật và đối chiếu số lượng từng lớp với audit.
-- [ ] Dương: đối chiếu hình mới với báo cáo và xác nhận phần bàn giao.
-- [ ] Dương: cập nhật Work Log/Report Tracking bằng ngày, thời gian và link minh chứng thực tế.
-- [ ] Dương: kiểm tra hướng dẫn cài đặt trên máy dùng để nộp và hoàn tất T19.
+- [x] Dương: đối chiếu hình mới và số liệu với bản báo cáo ngày 25/11; ghi kết quả trong `docs/DOI_CHIEU_BAN_GIAO_DUONG.md`.
+- [x] Dương: lập bản sao nhật ký với ngày, trạng thái và link commit thực tế tại `../output/BT02_Nhat_ky_Duong_cap_nhat.xlsx`.
+- [ ] Dương: điền số giờ thực tế, link bản Word đã chia sẻ và cập nhật nhật ký chung sau khi nhóm xác nhận.
+- [x] Dương: bổ sung hướng dẫn inference và kiểm thử DataLoader, dự đoán một ảnh với checkpoint trên CPU.
+- [ ] Dương: cài và kiểm thử môi trường CUDA trên máy nộp nếu nhóm cần dùng GPU; Conda chưa có trong PATH khi kiểm tra, pip dry-run không thay cho cài đặt thực tế.
+- [ ] Dương và nhóm: ghép, rà soát và xác nhận phần W02/W06 trong báo cáo chính thức.
 - [ ] Nhóm: rà soát báo cáo, demo, slide, các số liệu giữa những lần chạy và sản phẩm nộp.

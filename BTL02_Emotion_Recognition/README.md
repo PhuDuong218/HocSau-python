@@ -120,6 +120,17 @@ BT02_Emotion_Recognition/data/raw/
 
 ---
 
+### Dự đoán một ảnh khuôn mặt
+
+Sau khi kích hoạt môi trường và cài thư viện, chạy lệnh sau từ thư mục BTL02_Emotion_Recognition:
+
+    python src/predict_image.py "duong_dan_anh_khuon_mat.jpg"
+
+Dùng ảnh đã cắt khuôn mặt. Chương trình chuyển grayscale, resize 48x48, chuẩn hóa và in xác suất bảy lớp. Checkpoint và metadata mặc định nằm trong checkpoints/; chương trình đối chiếu SHA-256 và thứ tự nhãn trước khi chạy. Dùng --checkpoint và --metadata khi chọn cặp tệp khác.
+
+Trên máy này đã kiểm thử Python 3.12.14, PyTorch 2.15.0 CPU, torchvision 0.29.2 CPU với một ảnh FER2013 và checkpoint hiện có. Pip đã giải quyết dependencies trong chế độ dry-run cho requirements CUDA, nhưng chưa cài hoặc kiểm tra chạy CUDA. Conda không có trong PATH khi kiểm tra; cần cài Conda hoặc dùng môi trường Python phù hợp trên máy nộp.
+
+---
 ## 6. Quy chuẩn phối hợp Git & Nhánh làm việc
 
 1. **Tuyệt đối không push file nặng lên Git:**

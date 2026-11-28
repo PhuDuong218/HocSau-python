@@ -429,3 +429,30 @@ Tại thời điểm hiện tại:
 - `src/datasets.py`: implementation Dataset/DataLoader hiện tại.
 - `scripts/check_data.py`: kiểm tra nhanh các DataLoader.
 - Tài liệu bài giảng và notebook Keras do giảng viên cung cấp: dùng làm nguồn đối chiếu khi chuyển đổi; không tự thay đổi hành vi của ví dụ gốc mà không ghi chú.
+
+## T03 MLP và báo cáo R03 của Xuân Anh
+
+Notebook chính: [01_mlp_pytorch.ipynb](notebooks/01_mlp_pytorch.ipynb). Mô hình,
+adapter dữ liệu và vòng lặp huấn luyện được tách trong `src/mlp_models.py`,
+`src/mlp_data.py`, `src/train_mlp.py`. Không sửa pipeline chung của T02.
+
+Chạy tại thư mục `BTL03_Keras_to_PyTorch`:
+
+```powershell
+python -m pip install -r requirements.txt
+python -m unittest discover -s tests -v
+python scripts/run_exp01.py
+python -m src.train_mlp --task mnist
+python scripts/verify_mlp.py
+```
+
+EXP_01 dùng Gaussian 2D từ notebook nguồn, input ngẫu nhiên [-1,1], SGD lr=0.01,
+batch32, 50 epoch. EXP_02 dùng MNIST, SGD lr=0.01, batch128, 30 epoch; test accuracy
+đã đo là 96.20%. Kết quả và cấu hình nằm trong `results/EXP_01` và
+`results/T03_mnist`. Script verify cần hai checkpoint được tạo bởi hai lệnh train.
+Lần tải MNIST đầu cần Internet; checkpoint được tạo local và không commit.
+
+Báo cáo [R03 LSTM và SegNet](reports/R03_LSTM_SegNet_XuanAnh.docx) theo mục 3.1–3.4
+của đề cương; hai sơ đồ tensor PNG nằm trong `reports/R03_figures`.
+Phần LSTM là phân tích thiết kế từ Keras theo task7 ảnh, không kèm số liệu
+huấn luyện LSTM chưa có nguồn xác nhận. SegNet đối chiếu notebook của nhóm.

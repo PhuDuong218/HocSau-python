@@ -1,1 +1,28 @@
-.vscode/ 
+# Environments and temporary files
+.venv/
+venv/
+.env
+.vscode/
+.idea/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+~$*
+
+# New raw data and model weights are shared outside Git
+*.pth
+*.pt
+*.ckpt
+*.npy
+*.npz
+*.zip
+BTL02_Emotion_Recognition/data/
+BTL03_Keras_to_PyTorch/data/*
+!BTL03_Keras_to_PyTorch/data/README.md
+
+# Local rendering and packaging
+tmp/
+output/
+runs/

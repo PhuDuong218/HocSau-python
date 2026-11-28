@@ -1,0 +1,14 @@
+{
+  "base_commit": "e8b55e70aae99eca5e836525f5132b405d342cd7",
+  "python": "3.14.7",
+  "torch": "2.14.0+cpu",
+  "torchvision": "0.29.2+cpu",
+  "numpy": "2.5.3",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "source_sha256": {
+    "src\\train_mlp.py": "e66d77a6f9e60de5dd4611d04a5980ea6e68886f955a033e455b0d8a8757d01b",
+    "src\\mlp_models.py": "8e52075350485ebc45c4329664d20d599e4bba3b5eb02e0019a2969f76181fb6",
+    "src\\mlp_data.py": "b4d8b5f5cb56961e90ae799120b439f3aa73bde5e35494e1d5cc8fb50d8bad6a",
+    "src\\datasets.py": "072a093064b5272bde841dccf962e451f7c20ac16f5885aa0e5343a054d23209"
+  }
+}

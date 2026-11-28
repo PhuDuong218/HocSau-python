@@ -51,8 +51,6 @@ BTL03_Keras_to_PyTorch/
 │       ├── train/labels/
 │       ├── test/depth/
 │       └── test/labels/
-├── docs/
-│   └── DATA_FORMATS.md        # Định dạng và mapping nhãn
 ├── notebooks/                 # Notebook thử nghiệm/khám phá
 ├── src/
 │   ├── __init__.py
@@ -186,7 +184,7 @@ data/fer2013/
     └── surprise/
 ```
 
-Dữ liệu được nạp qua `torchvision.datasets.ImageFolder`. DataLoader dùng chung chuẩn hóa về $[-1, 1]$. Trainer CNN dùng cấu hình riêng được mô tả trong [tài liệu đối chiếu](docs/CNN_CONVERSION.md).
+Dữ liệu được nạp qua `torchvision.datasets.ImageFolder`. DataLoader dùng chung chuẩn hóa về $[-1, 1]$. Trainer CNN dùng cấu hình riêng trong [`src/train_cnn.py`](src/train_cnn.py).
 
 ### 6.4. Hand Depth
 
@@ -206,9 +204,8 @@ Mỗi ảnh depth phải có ảnh mask tương ứng. Tên file mask trong bộ
 
 **Lưu ý quản lý dữ liệu:** Không commit dataset lớn, dữ liệu có bản quyền hoặc dữ liệu cá nhân lên GitHub. Pipeline đã thiết lập `.gitignore` loại trừ thư mục `data/`.
 
-Chi tiết định dạng: xem [`docs/DATA_FORMATS.md`](docs/DATA_FORMATS.md).
+Chi tiết định dạng và mapping nhãn: xem [`src/datasets.py`](src/datasets.py).
 
-**Lưu ý:** `docs/DATA_FORMATS.md` hiện còn mô tả FER2013 dạng CSV, cách xoay ảnh gender và mapping mask khác với `src/datasets.py`. Cần đối chiếu dữ liệu và notebook gốc trước khi dùng các mô tả đó cho thực nghiệm; code hiện dùng thư mục ảnh FER2013 và LUT trong `src/datasets.py`.
 
 ## 7. Sử dụng Dataset và DataLoader
 
@@ -274,13 +271,13 @@ Kết quả kiểm tra cần xem:
 - Nhãn có nằm trong khoảng class index hợp lệ không.
 - Số lượng ảnh và mask có khớp không.
 
-Nếu gặp lỗi `FileNotFoundError`, kiểm tra vị trí/tên file dữ liệu. Nếu lỗi shape, không sửa bằng cách reshape tùy tiện; hãy đối chiếu `docs/DATA_FORMATS.md` và notebook nguồn.
+Nếu gặp lỗi `FileNotFoundError`, kiểm tra vị trí/tên file dữ liệu. Nếu lỗi shape, không sửa bằng cách reshape tùy tiện; hãy đối chiếu `src/datasets.py` và notebook nguồn.
 
 ## CNN của Dương (T04 và T05)
 
 - [T04 — MNIST và Gender](notebooks/02_cnn_gender.ipynb)
 - [T05 — FER2013](notebooks/02_cnn_fer2013.ipynb)
-- [Đối chiếu với Keras và kết quả thực nghiệm](docs/CNN_CONVERSION.md)
+- [Cấu hình train/evaluation CNN](src/train_cnn.py) và kết quả trong `results/`.
 
 Để mở notebook, cài thêm `jupyterlab` trong môi trường dự án và chạy `python -m jupyterlab` từ thư mục BTL03.
 
@@ -421,11 +418,10 @@ README này mô tả cách sử dụng repository và quy trình làm việc; n�
 
 Tại thời điểm hiện tại:
 - **T01 & T02 (Hoàn thành):** Đã hoàn thiện cấu trúc dự án, môi trường, và Data Pipeline cho toàn bộ 4 bộ dữ liệu (MNIST, Gender, FER2013 dạng ImageFolder, SegNet ánh xạ LUT 7 lớp qua `scripts/check_data.py`).
-- **T04 & T05:** Đã chuyển đổi MNIST CNN, Gender CNN và FER2013 CNN. Xem [kết quả thực nghiệm](docs/CNN_CONVERSION.md) để đối chiếu các mốc nghiệm thu.
+- **T04 & T05:** Đã chuyển đổi MNIST CNN, Gender CNN và FER2013 CNN. Xem các thư mục kết quả CNN trong `results/` để đối chiếu các mốc nghiệm thu.
 
 ## 15. Tài liệu tham khảo trong repository
 
-- `docs/DATA_FORMATS.md`: chi tiết tên file, cấu trúc dữ liệu và mapping mask.
 - `src/datasets.py`: implementation Dataset/DataLoader hiện tại.
 - `scripts/check_data.py`: kiểm tra nhanh các DataLoader.
 - Tài liệu bài giảng và notebook Keras do giảng viên cung cấp: dùng làm nguồn đối chiếu khi chuyển đổi; không tự thay đổi hành vi của ví dụ gốc mà không ghi chú.
@@ -452,7 +448,6 @@ batch32, 50 epoch. EXP_02 dùng MNIST, SGD lr=0.01, batch128, 30 epoch; test acc
 `results/T03_mnist`. Script verify cần hai checkpoint được tạo bởi hai lệnh train.
 Lần tải MNIST đầu cần Internet; checkpoint được tạo local và không commit.
 
-Báo cáo [R03 LSTM và SegNet](reports/R03_LSTM_SegNet_XuanAnh.docx) theo mục 3.1–3.4
-của đề cương; hai sơ đồ tensor PNG nằm trong `reports/R03_figures`.
-Phần SegNet đối chiếu notebook của nhóm. Kết quả LSTM hiện nằm trong
-`results/lstm_summation_seed42`.
+Báo cáo R03 được bàn giao riêng theo mục 3.1–3.4 của đề cương;
+hai sơ đồ tensor PNG nằm trong `reports/R03_figures`.
+Kết quả LSTM hiện nằm trong `results/lstm_summation_seed42`.

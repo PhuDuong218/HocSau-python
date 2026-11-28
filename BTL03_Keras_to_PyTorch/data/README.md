@@ -1,2 +1,2 @@
 # Dữ liệu
-Đặt dữ liệu theo hướng dẫn tại `docs/DATA_FORMATS.md`. Không commit dataset lớn lên GitHub nếu chưa thống nhất với nhóm/giảng viên.
+Đặt dữ liệu theo mục 6 trong [README BTL03](../README.md). Không commit dataset lớn lên GitHub nếu chưa thống nhất với nhóm/giảng viên.

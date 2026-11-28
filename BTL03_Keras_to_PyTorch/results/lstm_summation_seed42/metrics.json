@@ -1,0 +1,38 @@
+{
+  "task": "T06_mnist_cnn_lstm",
+  "loss_function": "L1Loss (MAE)",
+  "max_to_add": 8,
+  "min_to_add": 1,
+  "val_ratio": 0.1,
+  "seed": 42,
+  "sequence_seed": 2018,
+  "keras_init": true,
+  "device": "cuda",
+  "device_name": "NVIDIA GeForce RTX 3050 Laptop GPU",
+  "batch_size": 128,
+  "initial_lr": 0.01,
+  "optimizer": "sgd",
+  "momentum": 0.0,
+  "epochs_requested": 30,
+  "epochs_completed": 30,
+  "best_epoch": 28,
+  "parameters": 1748097,
+  "keras_equivalent_parameters": 1747073,
+  "train_samples": 54001,
+  "validation_samples": 5999,
+  "test_samples": 10000,
+  "validation": {
+    "loss": 0.6079029433626715,
+    "rmse": 1.0784211294514245,
+    "exact_accuracy": 0.6531088514752459,
+    "within_1_accuracy": 0.835639273212202
+  },
+  "test": {
+    "loss": 0.5963868527412415,
+    "rmse": 1.060219060444149,
+    "exact_accuracy": 0.6637,
+    "within_1_accuracy": 0.8393
+  },
+  "training_seconds": 1131.5363312000409,
+  "mean_epoch_seconds": 37.71787770666803
+}

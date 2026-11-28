@@ -1,0 +1,71 @@
+{
+  "device": "Tesla T4",
+  "tensorflow_version": "2.21.0",
+  "models": {
+    "MNIST_CNN": {
+      "loss": 0.0229,
+      "metric_label": "Acc (%)",
+      "metric": 99.24,
+      "params": 1817610,
+      "epochs": 4,
+      "mean_epoch_seconds": 13.92,
+      "device": "Tesla T4"
+    },
+    "MNIST_CNN_LSTM": {
+      "loss": 0.5618,
+      "metric_label": "MAE",
+      "metric": 0.5618,
+      "params": 1747073,
+      "epochs": 30,
+      "mean_epoch_seconds": 57.54,
+      "device": "Tesla T4"
+    },
+    "Human_Gender_CNN": {
+      "loss": 0.3355,
+      "metric_label": "Acc (%)",
+      "metric": 87.67,
+      "params": 4063570,
+      "epochs": 30,
+      "mean_epoch_seconds": 6.01,
+      "device": "Tesla T4"
+    },
+    "FER2013_CNN": {
+      "loss": 1.1663,
+      "metric_label": "Acc (%)",
+      "metric": 54.74,
+      "params": 19028287,
+      "epochs": 30,
+      "mean_epoch_seconds": 20.67,
+      "device": "Tesla T4"
+    },
+    "Hand_Depth_SegNet": {
+      "loss": 0.7282,
+      "metric_label": "Acc (%)",
+      "metric": 80.33,
+      "params": 2294279,
+      "epochs": 15,
+      "mean_epoch_seconds": 15.81,
+      "device": "Tesla T4"
+    },
+    "Func_apxm_MLP": {
+      "loss": 0.0009,
+      "metric_label": "MSE",
+      "metric": 0.0009,
+      "params": 65,
+      "epochs": 50,
+      "batch_size": 32,
+      "mean_epoch_seconds": 0.1347,
+      "device": "Tesla T4"
+    },
+    "MNIST_MLP": {
+      "loss": 0.1114,
+      "metric_label": "Acc (%)",
+      "metric": 96.57,
+      "params": 669706,
+      "epochs": 30,
+      "batch_size": 128,
+      "mean_epoch_seconds": 1.89,
+      "device": "Tesla T4"
+    }
+  }
+}

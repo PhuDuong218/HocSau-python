@@ -1,0 +1,29 @@
+{
+  "run_id": "EXP_01",
+  "train_mse": 0.0008152398513630033,
+  "test_mse": 0.0009145853109657764,
+  "test_mae": 0.024239491671323776,
+  "params": 65,
+  "output_shape": "[B,1]",
+  "training_seconds": 2.257917800001451,
+  "config": {
+    "seed": 42,
+    "input_range": [
+      -1,
+      1
+    ],
+    "train_samples": 1024,
+    "test_samples": 100,
+    "target": "exp(-(x1^2+x2^2)/2)/(2*pi), Gaussian from original notebook",
+    "sampling": "independent random uniform x1,x2; no grid",
+    "hidden": 16,
+    "batch_size": 32,
+    "epochs": 50,
+    "optimizer": "SGD",
+    "lr": 0.01,
+    "loss": "MSELoss",
+    "device": "cpu",
+    "note": "Separate run matching tracking-sheet hyperparameters; original grid sweeps retained in T03_function."
+  },
+  "checkpoint_reload": "passed"
+}

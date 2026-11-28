@@ -1,0 +1,37 @@
+{
+  "dataset": "mnist",
+  "seed": 42,
+  "device": "cpu",
+  "batch_size": 128,
+  "initial_lr": 0.001,
+  "optimizer": "adam",
+  "epochs_requested": 4,
+  "epochs_completed": 4,
+  "best_epoch": 4,
+  "parameters": 1817610,
+  "train_samples": 54001,
+  "validation_samples": 5999,
+  "test_samples": 10000,
+  "split_manifest": null,
+  "classes": [
+    "0 - zero",
+    "1 - one",
+    "2 - two",
+    "3 - three",
+    "4 - four",
+    "5 - five",
+    "6 - six",
+    "7 - seven",
+    "8 - eight",
+    "9 - nine"
+  ],
+  "validation": {
+    "loss": 0.037900550716627554,
+    "accuracy": 0.989164860810135
+  },
+  "test": {
+    "loss": 0.02448740399349481,
+    "accuracy": 0.9924
+  },
+  "training_seconds": 709.3936736999995
+}

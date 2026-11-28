@@ -1,0 +1,2 @@
+6 unit tests passed (unittest discover -s tests -v).
+Dense transpose equivalence; MNIST logits/CE/669706 parameters; Gaussian formula/shape; gradient/reload; weighted epoch loss; T02 raw-pixel adapter.

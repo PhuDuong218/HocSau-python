@@ -1,0 +1,18 @@
+# Bỏ qua thư mục dữ liệu thô và checkpoints dung lượng lớn
+data/raw/
+*.tar.gz
+*.zip
+
+# Bỏ qua checkpoints mô hình nặng
+checkpoints/*.pth
+checkpoints/*.pth.tmp
+checkpoints/*.pt
+
+# Bỏ qua cache của Python & Jupyter
+__pycache__/
+.ipynb_checkpoints/
+*.pyc
+# Môi trường Python cục bộ của từng máy
+.venv/
+
+results/training/**/progress.json

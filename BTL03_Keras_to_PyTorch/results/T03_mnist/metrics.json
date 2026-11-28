@@ -1,0 +1,21 @@
+{
+  "test_loss": 0.11891187029778957,
+  "test_accuracy": 0.962,
+  "params": 669706,
+  "training_seconds": 190.25100070000917,
+  "seconds_per_epoch": 6.341700023333639,
+  "train_samples": 60000,
+  "test_samples": 10000,
+  "config": {
+    "task": "mnist",
+    "epochs": 30,
+    "batch_size": 128,
+    "optimizer": "SGD",
+    "learning_rate": 0.01,
+    "seed": 42,
+    "dropout": 0.2,
+    "device": "cpu",
+    "normalization": "raw uint8 / 255 via local adapter of T02 dataset",
+    "checkpoint_selection": "fixed final epoch; no best-test selection"
+  }
+}

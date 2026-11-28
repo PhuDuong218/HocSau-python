@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "function_predictions": 100,
+  "mnist_predictions": 10000,
+  "checkpoint_reload": true,
+  "mnist_test_loss": 0.11891187029778957,
+  "mnist_test_accuracy": 0.962
+}

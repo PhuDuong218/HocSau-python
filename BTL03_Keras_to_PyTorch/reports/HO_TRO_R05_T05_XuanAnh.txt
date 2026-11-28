@@ -1,0 +1,53 @@
+GHI CHÚ HỖ TRỢ R05 VÀ T05 - NGUYỄN XUÂN ANH
+
+Gửi Quốc Việt để tổng hợp R05; Phú Dương tham khảo phần kiểm tra T05.
+Phạm vi là nhận xét kỹ thuật từ code và kết quả đã có, không phải một lần
+huấn luyện FER2013/LSTM/SegNet mới của Xuân Anh.
+
+1. NĂM ĐIỂM CẦN KIỂM TRA KHI CHUYỂN KERAS SANG PYTORCH
+- Thứ tự kênh: NHWC đổi sang NCHW bằng permute; không reshape tùy tiện để
+  thay thứ tự kênh. Với chuỗi giữ riêng chiều T: [B,T,C,H,W].
+- Softmax kép: MNIST/FER/SegNet trả logits cho CrossEntropyLoss. Argmax lấy
+  nhãn khi đánh giá; Softmax chỉ dùng khi cần xác suất trình diễn.
+- Nhãn: phân loại dùng torch.long [B]; segmentation dùng [B,H,W] và nhãn
+  0..6, không đưa mask RGB/giá trị 255 trực tiếp vào CrossEntropyLoss.
+- Gradient: zero_grad trước mỗi minibatch, backward rồi step. Quên xóa
+  gradient làm thay đổi thuật toán thành tích lũy gradient ngoài chủ đích.
+- Chế độ đánh giá: model.eval() và no_grad(). Nếu để train(), dropout/BN
+  làm kết quả kiểm thử khác và có thể cập nhật thống kê BN từ tập test.
+
+2. BÀI HỌC TỪ MLP ĐÃ CHẠY
+MNIST 669706 tham số, SGD .01, batch128, 30 epoch đạt test accuracy96.20%.
+Keras output có sẵn96.48%, không được kết luận framework nhanh/tốt hơn chỉ
+từ hai số vì khác RNG, phiên bản và môi trường. Giữ nguyên xử lý pixel/255
+như nguồn khi đối chiếu, ghi riêng khác biệt với chuẩn hóa mean/std của T02.
+Xấp xỉ Gaussian: loss giảm nhưng bề mặt cấu hình gốc vẫn underfit; cần nhìn
+hình và baseline, không chỉ báo MSE nhỏ là đã học tốt hàm.
+
+3. REVIEW TĨNH HỖ TRỢ T05 FER2013
+Đã đọc make_splits trong src/train_cnn.py của nhánh Duong và pipeline chung.
+Train transform được override bằng RandomAffine(45) có dịch chuyển và flip;
+validation dùng bản sao dataset với test transform không augment ngẫu nhiên.
+Code kiểm tra class_to_idx của train/test giống nhau và có7 lớp. Khi báo cáo,
+ghi đúng RandomAffine45 thay vì chỉ suy từ RandomRotation15 trong loader T02.
+Tư liệu gốc: BTL03_Keras_to_PyTorch/src/train_cnn.py tại nhánh Duong.
+Chưa chạy lại FER2013, nên không nhận đã xác nhận accuracy hay dữ liệu của T05.
+
+4. LSTM VÀ SEGNET ĐỂ BỔ SUNG KẾT LUẬN
+- TimeDistributed có thể triển khai bằng gộp B*T, chạy CNN dùng chung trọng
+  số rồi khôi phục [B,T,F]. Bản Keras nguồn tối đa8 ảnh, task nhóm ghi7 ảnh:
+  cần chủ T06 xác nhận code cuối trước khi ghi như một cấu hình đã chạy.
+- SegNet nhánh Nhi dùng nearest Upsample; không mô tả là unpool có chỉ số.
+- LUT mask đang khởi tạo bằng0; kiểm tra pixel ngoài7 mức trước ánh xạ để
+  tránh âm thầm coi nhãn lạ là nền.
+- mIoU trong notebook được trung bình theo batch, không phải confusion matrix
+  toàn test. Khi so benchmark phải thống nhất cách tổng hợp và lớp bị vắng.
+
+5. ƯU NHƯỢC ĐIỂM VÀ HƯỚNG PHÁT TRIỂN
+Keras giảm lượng code cho fit/evaluate/callback; PyTorch cho phép quan sát và
+điều khiển từng bước gradient, mode và tensor. Mức kiểm soát này cũng đòi hỏi
+test shape/loss và kỷ luật logging tốt hơn. Không khẳng định chung framework
+nào luôn nhanh hơn; cần benchmark cùng dữ liệu, cấu hình, thiết bị và cách đo.
+Hướng mở rộng: tách validation chuẩn khi tuning, chạy nhiều seed, dùng thêm
+metric theo lớp; thử U-Net/attention cho segmentation như thí nghiệm mới;
+kiểm chứng ONNX và độ đúng suy luận trước khi nói đã triển khai thời gian thực.

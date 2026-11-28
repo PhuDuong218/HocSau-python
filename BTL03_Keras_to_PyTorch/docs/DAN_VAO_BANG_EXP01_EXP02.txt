@@ -1,0 +1,17 @@
+DỮ LIỆU ĐIỀN NHẬT KÝ - CHỈ EXP_01 VÀ EXP_02 CỦA XUÂN ANH
+
+EXP_01 - cột F (Output & Params): [B,1]; 65 trainable parameters.
+Cột G (Kết quả): Train MSE=0.000815240; test MSE=0.000914585; test MAE=0.024239492.
+Cột H (Ghi chú): Gaussian 2D từ nguồn, x1/x2 random uniform[-1,1], 1024 train/100 test, hidden16 sigmoid; SGD lr=.01, batch32, 50 epoch, seed42, CPU; train 2.258s. Nạp lại checkpoint: passed. Đây là run bổ sung đúng cấu hình ảnh, không dùng số từ khảo sát grid cũ.
+Bằng chứng: scripts/run_exp01.py; results/EXP_01/; checkpoints/EXP_01_function.pth.
+
+EXP_02 - cột F: [B,10] logits; 669706 trainable parameters.
+Cột G: Test CE loss=0.118911870; test accuracy=96.20%.
+Cột H: MNIST 60000 train/10000 test, pixel/255; SGD lr=.01, batch128, 30 epoch, seed42, CPU; train+eval 190.251s, 6.342s/epoch. Checkpoint cuối; không chọn theo test. Mốc task ~96.5%, thực tế96.20%, chênh0.30 điểm phần trăm; cần reviewer duyệt mức tương đương.
+Bằng chứng: notebooks/01_mlp_pytorch.ipynb; src/train_mlp.py; results/T03_mnist/; checkpoints/T03_mnist.pth.
+
+R03 - bảng báo cáo: link reports/R03_LSTM_SegNet_XuanAnh.docx và sơ đồ tensor.
+Trạng thái đề nghị: Bản thảo theo đề cương đã bàn giao / Chờ review.
+Người phối hợp hoặc nhóm trưởng review và xác nhận thời gian hoàn thành; số liệu LSTM chưa có nguồn không được tự điền.
+
+Các số này đã chạy/đối chiếu trên máy; chưa được tự ghi vào Google Sheets.

@@ -1,0 +1,56 @@
+PHẦN BÀN GIAO CỦA NGUYỄN XUÂN ANH THEO 3 ẢNH PHÂN CÔNG
+
+1. T03 - CODE MLP (PHỤ TRÁCH CHÍNH)
+Nộp notebook notebooks/01_mlp_pytorch.ipynb, các module src/mlp_models.py,
+src/mlp_data.py, src/train_mlp.py, scripts/run_exp01.py, tests và hướng dẫn chạy.
+Kèm kết quả thật EXP_01 và EXP_02, log, hình, cấu hình, số tham số và checkpoint
+để nhóm trưởng kiểm tra. Không đưa dataset/checkpoint lớn lên GitHub.
+
+EXP_01 theo ảnh: input sinh ngẫu nhiên [-1,1], SGD lr=.01, batch32, 50 epoch,
+MSELoss. Hàm Gaussian hai chiều lấy từ notebook gốc; chọn 1024 train/100 test,
+hidden16 và ghi rõ trong cấu hình. Không gọi các khảo sát grid cũ là EXP_01 này.
+EXP_02: MNIST đủ 60000 train/10000 test, SGD lr=.01, batch128, 30 epoch,
+CrossEntropyLoss. Accuracy đo được 96.20%, thấp hơn mốc khoảng 96.5% trong
+tiêu chí 0.30 điểm phần trăm. Nhóm trưởng cần xác nhận mức tương đương này;
+không sửa số thành 96.5% để đánh dấu xong.
+
+2. EXP_01, EXP_02 - NHẬT KÝ THỰC NGHIỆM
+Điền ba cột F, G, H còn trống bằng số liệu trong DAN_VAO_BANG_EXP01_EXP02.txt.
+Đính link source/notebook, thư mục kết quả và commit/PR nếu bảng cho phép.
+Không tự điền kết quả các EXP_03..EXP_07 của người khác.
+
+3. R03 - BÁO CÁO MỤC 3 (PHỤ TRÁCH CHÍNH)
+Nộp reports/R03_LSTM_SegNet_XuanAnh.docx và reports/R03_figures/ (PNG + SVG).
+Bản thảo có đủ phân tích LSTM/TimeDistributed/L1Loss, SegNet/Encoder-Decoder/
+Upsample/CrossEntropyLoss, sơ đồ tensor, Dataset và LUT 7 lớp.
+SegNet đã đối chiếu notebook thật nhánh Nhi và kiểm tra forward bằng tensor giả.
+LSTM chưa tìm thấy bản PyTorch của Quốc Việt dù đã kiểm tra các nhánh/lịch sử,
+PR công khai và thư mục bài tập. Keras gốc dùng tối đa8 ảnh/batch128; bảng nhóm
+ghi 7 ảnh/batch64. Bản thảo phân biệt rõ hai cấu hình, chưa giả nhận đã đối chiếu.
+R03 hiện là bản phân tích kỹ thuật đủ 3.1–3.4 theo đề cương, có thể bàn giao
+để review. Nếu nhóm cần mô tả đúng bản code LSTM đã chạy thì đối chiếu thêm
+với Quốc Việt; không tự ghi MAE hoặc thời gian chưa có số đo.
+
+4. R05 VÀ T05 - VAI TRÒ HỖ TRỢ
+Gửi reports/HO_TRO_R05_T05_XuanAnh.txt cho Quốc Việt (R05) và Phú Dương (T05).
+Đây là ghi chú kỹ thuật và review tĩnh, không nhận là đã huấn luyện lại FER2013.
+R05 vẫn do Quốc Việt phụ trách chính; không đánh hoàn thành thay chủ task.
+
+5. T08, T09, T10 - PHỐI HỢP CẢ NHÓM
+Gửi số liệu MLP cho người tổng hợp benchmark; gửi bản R03 cho trưởng nhóm;
+tham gia review/ghép báo cáo theo yêu cầu. T10 đóng gói bài cả nhóm do Tuyết Nhi
+phụ trách; ZIP này là phần cá nhân của Xuân Anh, không phải bài chung cuối cùng.
+
+TRƯỚC KHI GỬI
+- Điền MSSV, thêm link commit/PR sau khi push và nhờ review.
+- T03: code/kết quả đã có; cần duyệt mức accuracy 96.20% so với mốc ~96.5%.
+- R03: nộp bản thảo theo đề cương và sơ đồ để review. Việc hoàn thành mục viết
+  do người review xác nhận; notebook LSTM là nguồn đối chiếu bổ sung khi cần.
+- Báo cáo MLP R02 đã làm trước đây là tư liệu gửi Phú Dương, không thay R03.
+
+TIN NHẮN BÀN GIAO (BẠN TỰ GỬI)
+Mình gửi phần T03 MLP, số liệu EXP_01/EXP_02, bản thảo R03 LSTM/SegNet và
+ghi chú hỗ trợ R05/T05. MNIST đạt 96.20%; nhờ review mức tương đương tiêu chí.
+SegNet đã đối chiếu notebook nhánh Nhi. Phần LSTM của R03 phân tích theo đề cương7 ảnh/batch64 và ghi rõ khác biệt
+với Keras nguồn8 ảnh/batch128, không kèm số liệu LSTM chưa có nguồn.
+Nhờ Phú Dương và nhóm trưởng review bản thảo; Việt có thể bổ sung code để đối chiếu.

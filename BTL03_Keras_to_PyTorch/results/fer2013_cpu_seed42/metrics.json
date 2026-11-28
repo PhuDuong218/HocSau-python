@@ -1,0 +1,25 @@
+{
+  "dataset": "fer2013",
+  "seed": 42,
+  "device": "cpu",
+  "batch_size": 128,
+  "initial_lr": 0.0001,
+  "optimizer": "adam",
+  "epochs_requested": 1,
+  "epochs_completed": 1,
+  "best_epoch": 1,
+  "parameters": 19028287,
+  "train_samples": 23748,
+  "validation_samples": 4185,
+  "test_samples": 7178,
+  "split_manifest": "..\\BTL02_Emotion_Recognition\\results\\training\\baseline_seed42\\split_manifest.csv",
+  "validation": {
+    "loss": 1.7710258711196187,
+    "accuracy": 0.25591397849462366
+  },
+  "test": {
+    "loss": 1.7829466538364158,
+    "accuracy": 0.24811925327389245
+  },
+  "training_seconds": 1302.7063012
+}

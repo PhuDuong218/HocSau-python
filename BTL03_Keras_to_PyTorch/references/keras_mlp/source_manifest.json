@@ -1,0 +1,12 @@
+[
+  {
+    "source_archive": "examples.zip",
+    "member": "examples/1. MLP/Func_apxm_MLP.ipynb",
+    "sha256": "8e3926b16b5fd730323d5f45661e2db72628463e916a822f09b68f525a6ba7e8"
+  },
+  {
+    "source_archive": "examples.zip",
+    "member": "examples/1. MLP/MNIST_MLP.ipynb",
+    "sha256": "799206fb06548c3e3f1dd79bc48bd411620aa21645f9a4efabea484d23ccd209"
+  }
+]

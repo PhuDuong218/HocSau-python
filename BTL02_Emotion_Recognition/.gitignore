@@ -1,3 +1,4 @@
+<<<<<<<< HEAD:BTL02_Emotion_Recognition/.gitignore
 # Bỏ qua thư mục dữ liệu thô và checkpoints dung lượng lớn
 data/raw/
 *.tar.gz
@@ -13,6 +14,33 @@ __pycache__/
 .ipynb_checkpoints/
 *.pyc
 # Môi trường Python cục bộ của từng máy
+========
+# Environments and temporary files
+>>>>>>>> 8b7c17728673304c57a320a3ab21073cee88aabc:.gitignore
 .venv/
+venv/
+.env
+.vscode/
+.idea/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+~$*
 
-results/training/**/progress.json
+# New raw data and model weights are shared outside Git
+*.pth
+*.pt
+*.ckpt
+*.npy
+*.npz
+*.zip
+BTL02_Emotion_Recognition/data/
+BTL03_Keras_to_PyTorch/data/*
+!BTL03_Keras_to_PyTorch/data/README.md
+
+# Local rendering and packaging
+tmp/
+output/
+runs/

@@ -449,7 +449,7 @@ batch32, 50 epoch. EXP_02 dùng MNIST, SGD lr=0.01, batch128, 30 epoch; test acc
 `results/T03_mnist`. Script verify cần hai checkpoint được tạo bởi hai lệnh train.
 Lần tải MNIST đầu cần Internet; checkpoint được tạo local và không commit.
 
-Báo cáo [R03 LSTM và SegNet](reports/R03_LSTM_SegNet_XuanAnh.docx) theo mục 3.1–3.4
-của đề cương; hai sơ đồ tensor PNG nằm trong `reports/R03_figures`.
+Báo cáo R03 được bàn giao riêng theo mục 3.1–3.4 của đề cương;
+hai sơ đồ tensor PNG nằm trong `reports/R03_figures`.
 Phần LSTM là phân tích thiết kế từ Keras theo task7 ảnh, không kèm số liệu
 huấn luyện LSTM chưa có nguồn xác nhận. SegNet đối chiếu notebook của nhóm.

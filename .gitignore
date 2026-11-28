@@ -29,3 +29,6 @@ runs/
 
 # BTL03 docs kept locally only at user request
 /BTL03_Keras_to_PyTorch/docs/
+
+# R03 Word report shared outside Git
+/BTL03_Keras_to_PyTorch/reports/R03_LSTM_SegNet_XuanAnh.docx
